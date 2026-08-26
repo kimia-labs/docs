@@ -1,0 +1,78 @@
+---
+title: "Open your first position"
+description: "Choosing an asset, a size, and a leverage."
+---
+
+<Steps>
+  <Step title="Pick an asset">
+    The main screen lists assets with the funding rate each exchange is paying right
+    now, shown as an annualized percentage.
+
+    A higher rate is not automatically better. Rates on smaller assets swing harder
+    and reverse more often. Bitcoin and Ethereum pay less and behave more predictably.
+  </Step>
+
+  <Step title="Choose how much">
+    Enter the amount you want to commit. Kimia splits it between the two sides for
+    you.
+
+    Each side must clear 10 USD, so very small amounts will be rejected.
+  </Step>
+
+  <Step title="Choose leverage">
+    This decides how much of your money earns and how much sits as a safety buffer.
+
+    Start at 1x or 2x. The extra yield above 3x is small and the added fragility is
+    not.
+  </Step>
+
+  <Step title="Confirm">
+    Kimia checks the order against its safety limits, then places both sides. No
+    wallet signature is needed, because you already approved the agent.
+  </Step>
+</Steps>
+
+## What happens when you confirm
+
+Kimia buys the asset first, then opens the short. The order matters. If the second
+step fails for any reason, you are left holding the asset, which is a position you
+understand and can sell.
+
+Doing it the other way round could leave you holding only a short position, which
+loses money if the price rises. Kimia does not do that.
+
+## Reading the confirmation
+
+Once both sides are open you will see them in your positions list. Two entries, one
+long and one short, roughly equal in size.
+
+They will not be exactly equal. Prices move between the two orders, and each exchange
+rounds sizes differently. A small mismatch is normal and is the reason your returns
+will not track the funding rate perfectly.
+
+## If the order is refused
+
+Kimia checks every order before placing it and will refuse rather than proceed if
+something is wrong. Common reasons:
+
+| Message mentions | What to do |
+|---|---|
+| Notional or size limit | Reduce the amount. There is a cap per position |
+| Leverage limit | Lower the leverage |
+| Market not available | That asset is not currently tradeable through Kimia |
+| Stale or unavailable market data | Wait a moment and try again |
+| Residue or dust | Pick a different asset. This one cannot be exited cleanly |
+
+A refusal is the system working. It means the order was understood and judged unsafe,
+not that something broke. See [Troubleshooting](/safety/troubleshooting) if you see
+something else.
+
+## After it opens
+
+Funding is paid hourly by the exchange, directly into the account holding the short
+position. You do not need to claim it.
+
+There is nothing to do while a position is open. It stays open whether or not you are
+signed in.
+
+Next: [Your position](/using-kimia/your-position).

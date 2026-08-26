@@ -1,0 +1,83 @@
+---
+title: "FAQ"
+description: "Questions people ask before depositing."
+---
+
+<AccordionGroup>
+
+<Accordion title="Where does the yield actually come from">
+A fee called the funding rate, paid hourly by leveraged traders on a perpetual futures
+exchange. It is not newly issued tokens, not a share of protocol revenue, and not an
+incentive programme. Somebody is genuinely paying it. See
+[How it works](/how-it-works).
+</Accordion>
+
+<Accordion title="Is the return guaranteed">
+No. The funding rate changes hourly and can be negative, meaning the position costs
+you money rather than paying you. Any annualized figure describes the present moment,
+not the future.
+</Accordion>
+
+<Accordion title="Can Kimia take my money">
+No. Your funds sit in your own exchange account. The permission you grant covers
+trading only, and the exchange enforces that limit. It cannot withdraw or transfer.
+See [Your money](/safety/your-money).
+</Accordion>
+
+<Accordion title="Why did I only sign once">
+That signature approves an agent address to trade for you. Without it, every order
+would need you present and signing. It is a trading permission, not a withdrawal
+permission.
+</Accordion>
+
+<Accordion title="Can I lose money">
+Yes. Funding can turn negative, the leveraged short side can be liquidated, an
+exchange can auto deleverage your position, fees can exceed what you earned, and an
+exchange itself can fail. [Risks](/safety/risks) covers each in detail.
+</Accordion>
+
+<Accordion title="What is the minimum">
+Each side of a position must be worth at least 10 USD, making the practical floor
+around 25 to 30 USD. That is the technical minimum. Fees are roughly fixed per
+transaction, so small positions lose a large share of their yield to costs.
+</Accordion>
+
+<Accordion title="How long should I hold">
+Long enough for the funding collected to exceed the cost of opening and closing.
+Weeks rather than days. Frequent trading is the most common way people lose money on
+this strategy.
+</Accordion>
+
+<Accordion title="Why do I need to fund two exchanges separately">
+Hyperliquid and Pacifica run on different blockchains and nothing bridges between
+them. Money in one cannot open a position in the other. If you use only one exchange,
+you only fund one.
+</Accordion>
+
+<Accordion title="One side of my position shows a big loss">
+Look at both together. If the long side shows a matching gain, the hedge is doing its
+job. Neither number means anything on its own.
+</Accordion>
+
+<Accordion title="What happens if Kimia goes offline">
+Your position stays open at the exchange and keeps accruing funding. You can close it
+through the exchange's own interface at any time, without Kimia.
+</Accordion>
+
+<Accordion title="Why was my order refused">
+Kimia checks orders before placing them and refuses rather than proceeding when
+something is outside its limits. A refusal is the system working.
+[Troubleshooting](/safety/troubleshooting) lists the common reasons.
+</Accordion>
+
+<Accordion title="Is there a token or an airdrop">
+These docs cover using the product. Nothing here should be read as implying a
+distribution of any kind.
+</Accordion>
+
+<Accordion title="How do I stop">
+Close your positions, then revoke the agent through each exchange you approved.
+Withdraw from the exchange as normal. None of these steps require Kimia to cooperate.
+</Accordion>
+
+</AccordionGroup>

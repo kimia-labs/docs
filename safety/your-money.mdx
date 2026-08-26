@@ -1,0 +1,77 @@
+---
+title: "Your money"
+description: "Who holds what, and how to take the permission back."
+---
+
+## Kimia does not hold your funds
+
+Your money sits in your own account at Hyperliquid or Pacifica. Kimia has no account
+holding customer deposits and no ability to move your funds to itself or anywhere
+else.
+
+You can withdraw at any time, through the exchange, without Kimia's involvement or
+permission.
+
+## The two addresses
+
+When you sign in, two addresses are created for you.
+
+**Your main address** holds the exchange account and the money. It is yours. It signs
+exactly one thing, once per exchange, during setup.
+
+**The agent address** is created by Kimia and is allowed to place orders on your
+account. It holds no money of its own.
+
+The exchange enforces the difference. The agent's permission covers trading only. It
+is not a permission the software grants itself or can widen later.
+
+## What the agent can and cannot do
+
+| Can | Cannot |
+|---|---|
+| Open positions | Withdraw funds |
+| Close positions | Transfer to another address |
+| Cancel orders | Approve further permissions |
+| Change leverage on your account | Access your main wallet |
+
+The worst case if the agent were misused is unwanted trading on your account, which
+could lose money. It is not the same as your funds being taken, and the distinction is
+enforced by the exchange rather than by trust.
+
+## Revoking access
+
+You can revoke the agent at any time through the exchange's own interface, where
+approved agents are listed. Revoking there takes effect immediately and does not
+require Kimia to cooperate.
+
+After revoking:
+
+- Open positions stay open. Revoking does not close anything
+- Kimia can no longer place or close orders for you
+- You manage or close remaining positions through the exchange directly
+
+Revoke if you stop using Kimia, or at any point you are uncomfortable.
+
+## If something looks wrong
+
+Trades you did not initiate, or a position you do not recognise, warrant acting first
+and asking afterwards.
+
+<Steps>
+  <Step title="Revoke the agent at the exchange">
+    This stops any further orders immediately.
+  </Step>
+  <Step title="Close open positions through the exchange">
+    You do not need Kimia to do this.
+  </Step>
+  <Step title="Withdraw if you want to">
+    Your main wallet retains full control throughout.
+  </Step>
+</Steps>
+
+## Two exchanges, two separate accounts
+
+Approving Hyperliquid does not approve Pacifica, and revoking one does not revoke the
+other. Each is separate, with separate funds and a separate permission.
+
+If you decide to stop using Kimia entirely, revoke on both.

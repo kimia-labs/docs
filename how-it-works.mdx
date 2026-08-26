@@ -1,0 +1,89 @@
+---
+title: "How it works"
+description: "Funding rates, and why holding two opposite positions pays you."
+---
+
+## Where the yield comes from
+
+A perpetual future, or perp, is a way to bet on the price of an asset with borrowed
+money. Unlike a normal futures contract it never expires, so exchanges need some way
+to keep its price tethered to the real one.
+
+They do it with the funding rate. Every hour, one side pays the other.
+
+When more people are betting the price will rise than fall, which is most of the
+time in crypto, the buyers pay the sellers. Being on the selling side earns that
+payment, hour after hour, for as long as you hold.
+
+The catch is obvious. Betting the price will fall means losing money when it rises.
+
+## Cancelling out the price
+
+Kimia solves that by taking both sides at once.
+
+<Steps>
+  <Step title="Buy the asset outright">
+    You own it. If the price doubles, this position doubles.
+  </Step>
+  <Step title="Sell the same asset as a perp">
+    This position loses exactly what the first one gains, and gains exactly what it
+    loses.
+  </Step>
+  <Step title="Collect the funding rate">
+    The two positions cancel out on price. The funding payment does not cancel. It is
+    what you keep.
+  </Step>
+</Steps>
+
+The industry name for holding two positions that offset each other is
+**delta-neutral**. Delta means exposure to price. Neutral means close to none.
+
+## A worked example
+
+Suppose you start with 1,000 USD and the funding rate on an asset is 10 percent
+annualized.
+
+| | |
+|---|---|
+| You buy | 500 USD of the asset |
+| You sell short | 500 USD of the same asset as a perp |
+| Your price exposure | Close to zero |
+| The perp pays you | About 10 percent per year on 500 USD |
+
+That is roughly 50 USD a year, or 5 percent on your 1,000 USD. Half your money is
+doing the earning, because the other half is holding the hedge in place.
+
+## Why leverage changes the maths
+
+You can post less money against the short position and borrow the rest. That frees up
+more of your capital to sit in the earning position.
+
+| Leverage | Share of your money earning funding |
+|---|---|
+| 1x | 50 percent |
+| 2x | 67 percent |
+| 3x | 75 percent |
+| 5x | 83 percent |
+
+The gains shrink quickly after about 3x, and the risk does not. Higher leverage means
+a smaller price move can trigger a liquidation on the short side, which breaks the
+hedge at the worst possible moment. See [Risks](/safety/risks).
+
+## Two exchanges, not one
+
+Kimia works across two venues, Hyperliquid and Pacifica. Sometimes the best
+combination is buying the asset on one and shorting it on the other, because their
+funding rates differ.
+
+This matters for a practical reason: the two exchanges live on different blockchains
+and nothing moves money between them. You fund each one separately. See
+[Add funds](/getting-started/add-funds).
+
+## What you are actually being paid for
+
+It helps to be clear about this. You are not being paid for taking no risk. You are
+being paid for absorbing risk that leveraged traders want to shed, and for being
+willing to have your money tied up in a position that can be disrupted.
+
+The funding rate is the market's price for that service. When it is high, it is high
+because the service is in demand.

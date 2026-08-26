@@ -1,0 +1,65 @@
+---
+title: "Troubleshooting"
+description: "Common problems and what they mean."
+---
+
+## The approval signature failed
+
+**On Hyperliquid, with a message about an unfunded account.** The exchange requires a
+balance before it accepts an agent. Deposit first, then approve.
+
+**With a message that the wallet is already approved.** It worked already, possibly on
+an earlier attempt. Nothing further is needed and no signature was wasted.
+
+**With a message about the master address.** Your account is bound to a different
+wallet than the one you are signed in with. Sign in with the original wallet.
+
+## My position will not open
+
+**The short side is refused on Pacifica.** You have approved the agent but not
+deposited. Approval alone is not enough. See [Add funds](/getting-started/add-funds).
+
+**A message about size or notional limits.** There is a cap per position. Reduce the
+amount.
+
+**A message about leverage.** Lower it.
+
+**A message about market data being stale or unavailable.** Kimia refuses to price an
+order against data it cannot verify. Wait a moment and try again.
+
+**A message about residue or dust.** That asset cannot be exited cleanly within the
+allowed limit. Choose a different one.
+
+## Only one side of my position opened
+
+Kimia buys the asset before opening the short, so a partial failure normally leaves
+you holding the asset rather than an unhedged short.
+
+Either close the remaining side, or retry to complete the pair. Do not leave a lone
+short position open, since it is exposed to the price rising.
+
+## My balance looks wrong
+
+Positions read directly from the exchange. If Kimia and the exchange disagree, the
+exchange is right.
+
+Deposits can take a few minutes to confirm. If a deposit does not appear after that,
+check it on the exchange first, since the problem is more likely there than in Kimia.
+
+## A tiny amount of the asset is left after closing
+
+Expected. See [Closing a position](/using-kimia/closing) for why it happens and why it
+cannot be avoided.
+
+## The app is down
+
+Open positions are unaffected. They live at the exchange and continue to accrue
+funding whether or not Kimia is reachable.
+
+To close while Kimia is unavailable, use the exchange's own interface directly. Your
+positions are ordinary positions and can be managed there.
+
+## I want to stop using Kimia
+
+Close your positions, then revoke the agent on each exchange you approved. See
+[Your money](/safety/your-money).

@@ -1,0 +1,54 @@
+---
+title: "Your position"
+description: "What the numbers mean and what to watch."
+---
+
+Your positions list reads directly from the exchange, not from Kimia's own records.
+What you see is what the exchange believes, which is the number that matters.
+
+## The two entries
+
+Every delta-neutral position shows as two entries.
+
+| Entry | What it is |
+|---|---|
+| Long | The asset you own outright |
+| Short | The perp position that cancels the price exposure and collects funding |
+
+One will usually show a gain while the other shows a loss. That is the hedge working.
+Look at them together, not separately. A large loss on the short side paired with a
+matching gain on the long side means the price rose and nothing has gone wrong.
+
+## What to actually watch
+
+**The funding rate on your asset.** It changes hourly. If it has turned negative and
+stayed there, you are now paying to hold the position rather than being paid.
+
+**Your margin buffer on the short side.** This is the number that decides whether you
+get liquidated. If the price has risen a long way since you opened, the buffer will
+have shrunk. Adding funds to the exchange account restores room.
+
+**How long you have held it.** Opening and closing cost money. A position needs to
+run long enough for the funding collected to exceed what you paid to get in and out.
+
+## What not to worry about
+
+The long and short sizes drifting slightly apart. Small mismatches are normal.
+
+Unrealized profit and loss on either side individually. Only the combined figure
+means anything.
+
+Short-term swings in the funding rate. It moves constantly. One negative hour is
+noise.
+
+## When to consider closing
+
+There is no schedule and no maturity date. Reasonable moments to close:
+
+- Funding has been negative for a sustained period on your asset
+- Your margin buffer has shrunk and you do not want to add more funds
+- You need the money for something else
+- A different asset is paying meaningfully more and you have held long enough to
+  cover the cost of switching
+
+See [Closing a position](/using-kimia/closing).

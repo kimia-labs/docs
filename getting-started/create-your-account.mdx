@@ -1,0 +1,68 @@
+---
+title: "Create your account"
+description: "Signing in, and the one permission Kimia asks for."
+---
+
+<Steps>
+  <Step title="Sign in with your wallet">
+    Open the app and connect Phantom, MetaMask or Solflare.
+
+    Kimia creates two accounts for you behind the scenes, one on Ethereum and one on
+    Solana, because the two exchanges need different kinds of address. You will see
+    both listed in your account. They belong to you.
+  </Step>
+
+  <Step title="Approve trading on an exchange">
+    Pick Hyperliquid or Pacifica and approve it. Your wallet will ask you to sign a
+    message.
+
+    Read it before you sign. It says you are authorising a second address to trade on
+    your behalf. It does not authorise moving or withdrawing funds.
+  </Step>
+
+  <Step title="Repeat for the second exchange, if you want both">
+    Each exchange needs its own approval. The signature is different on each because
+    the two chains work differently.
+  </Step>
+</Steps>
+
+## What you just approved
+
+Kimia creates a separate address called an **agent**. The approval tells the exchange
+that this agent is allowed to place and cancel orders on your account.
+
+What the agent can do:
+
+- Open and close positions
+- Cancel orders
+- Change the leverage on your account
+
+What the agent cannot do:
+
+- Withdraw your funds
+- Move money to another address
+- Approve anything else on your behalf
+
+This is why the signature is worth reading rather than clicking through. The
+distinction between trading permission and withdrawal permission is the whole
+security model, and it is enforced by the exchange, not by Kimia.
+
+You can revoke it at any time. See [Your money](/safety/your-money).
+
+## One signature, once
+
+After this approval you will not be asked to sign again. Opening and closing
+positions happens without a wallet prompt.
+
+Some people find this surprising. It is the point of the agent: without it, every
+adjustment would need you present and signing.
+
+## If Hyperliquid rejects the approval
+
+Hyperliquid requires your account to hold some funds before it will accept an agent
+approval. If you have not deposited yet, the approval fails with a message about the
+account being unfunded.
+
+Deposit first, then approve. The Pacifica side does not have this requirement.
+
+Next: [Add funds](/getting-started/add-funds).

@@ -1,0 +1,56 @@
+---
+title: "What you need"
+description: "Before you begin."
+---
+
+## A crypto wallet
+
+Kimia signs you in with a wallet you already have. Phantom, MetaMask and Solflare all
+work.
+
+You do not need to fund this wallet directly. It is used to prove who you are and to
+approve Kimia once. The money goes elsewhere, which the next pages cover.
+
+## Funds on the right network
+
+This is the part that catches people out.
+
+Kimia trades on two exchanges that live on two different blockchains, and nothing
+moves money between them.
+
+| Exchange | Runs on | You need |
+|---|---|---|
+| Hyperliquid | Its own chain, funded from Ethereum or Arbitrum | USDC |
+| Pacifica | Solana | USDC on Solana |
+
+If you want to use both, you fund both. Separately. Money in your Hyperliquid account
+cannot open a position on Pacifica, and the reverse is also true.
+
+## A sensible starting amount
+
+There is a floor. Each side of a position must be worth at least 10 USD, so the
+practical minimum is around 25 to 30 USD once you account for both sides and the
+buffer that keeps the short position safe.
+
+That is the technical minimum, not a recommendation. Fees are roughly fixed per
+transaction, so at very small sizes they consume a large share of what you earn. A
+few hundred dollars is a more realistic place to start seeing the yield clearly.
+
+## About twenty minutes
+
+Most of it is waiting for deposits to confirm. The Kimia side takes a couple of
+minutes.
+
+<Note>
+You will be asked to sign one message per exchange during setup. That signature grants
+a trading permission. It never moves money, and it is the only signature Kimia asks
+for. Everything after that happens without interrupting you.
+</Note>
+
+## What you do not need
+
+You do not need to understand perpetual futures in detail. You do not need to watch
+charts or time an entry. You do not need to keep a browser tab open, since positions
+stay open at the exchange whether or not you are looking at them.
+
+Next: [Create your account](/getting-started/create-your-account).

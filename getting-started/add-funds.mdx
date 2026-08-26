@@ -1,0 +1,64 @@
+---
+title: "Add funds"
+description: "Depositing into your exchange accounts."
+---
+
+Your money goes into your own account at the exchange. Kimia never holds it and
+never takes possession of it.
+
+Each exchange is funded separately. There is no transfer between them.
+
+## Hyperliquid
+
+Hyperliquid accepts USDC. Deposit through Hyperliquid's own interface, using the same
+wallet you signed in to Kimia with.
+
+Once the deposit confirms, your balance appears in Kimia automatically. Nothing needs
+connecting or importing.
+
+<Note>
+Deposit before approving the agent on Hyperliquid. The exchange refuses agent
+approvals on an empty account.
+</Note>
+
+## Pacifica
+
+Pacifica runs on Solana and accepts USDC on Solana.
+
+<Warning>
+The Pacifica deposit screen is not yet part of the main Kimia app. For now, deposit
+through Pacifica directly, using the Solana address shown in your Kimia account.
+
+Approving the agent is not enough on its own. Without a deposit, the short side of
+your position will be refused by the exchange, and the position will not open.
+</Warning>
+
+## Which one to fund
+
+If you are starting out, pick one and fund only that one. A position that lives
+entirely on a single exchange is simpler to reason about and cheaper to close.
+
+Funding both opens up combinations where you buy on one exchange and short on the
+other, which is sometimes the better rate. It also means keeping enough spare balance
+on both sides, since Kimia cannot move money between them to cover a shortfall.
+
+## How much to leave spare
+
+Do not put every last dollar into a position.
+
+The short side needs a margin buffer. If the price rises sharply, that buffer absorbs
+the move. If it runs out, the exchange closes the position for you at a loss, which is
+called liquidation, and your hedge disappears at the moment you most need it.
+
+Keeping some unused balance on the exchange gives you room to top up rather than
+being forced out. See [Risks](/safety/risks).
+
+## Withdrawing
+
+You withdraw through the exchange, the same way you deposited. Kimia is not involved
+and cannot block it.
+
+Close any open position first. Funds backing a live position are not available to
+withdraw.
+
+Next: [Open your first position](/getting-started/first-position).

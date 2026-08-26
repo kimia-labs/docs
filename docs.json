@@ -1,0 +1,73 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Kimia",
+  "description": "Earn the funding rate paid by leveraged traders, without betting on price.",
+  "colors": {
+    "primary": "#5570d8",
+    "light": "#b4c7f5",
+    "dark": "#7790ed"
+  },
+  "favicon": "/favicon.png",
+  "logo": {
+    "light": "/logo/light.png",
+    "dark": "/logo/dark.png",
+    "href": "https://kimia.live"
+  },
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guide",
+        "groups": [
+          {
+            "group": "Start here",
+            "pages": [
+              "index",
+              "how-it-works",
+              "is-this-for-me"
+            ]
+          },
+          {
+            "group": "Getting started",
+            "pages": [
+              "getting-started/what-you-need",
+              "getting-started/create-your-account",
+              "getting-started/add-funds",
+              "getting-started/first-position"
+            ]
+          },
+          {
+            "group": "Using Kimia",
+            "pages": [
+              "using-kimia/your-position",
+              "using-kimia/closing",
+              "using-kimia/what-it-costs"
+            ]
+          },
+          {
+            "group": "Safety",
+            "pages": [
+              "safety/risks",
+              "safety/your-money",
+              "safety/troubleshooting"
+            ]
+          },
+          {
+            "group": "Reference",
+            "pages": [
+              "glossary",
+              "faq"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "navbar": {
+    "primary": {
+      "type": "button",
+      "label": "Launch App",
+      "href": "https://kimia.live"
+    }
+  }
+}

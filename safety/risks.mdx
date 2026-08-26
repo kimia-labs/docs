@@ -1,0 +1,106 @@
+---
+title: "Risks"
+description: "The specific ways this loses money, written plainly."
+---
+
+Delta-neutral does not mean risk-free. It means one particular risk, the price going
+up or down, has largely been removed. Several others have not.
+
+Read this before depositing.
+
+## Funding can turn negative
+
+The yield is a fee paid by leveraged buyers. When sentiment flips and more people are
+betting the price will fall, the direction reverses and the sellers start paying the
+buyers.
+
+Your position then costs you money every hour instead of paying you.
+
+This is not rare. It happens during sharp downturns, which is also when you are least
+likely to want to close.
+
+**What you can do.** Watch the rate on your asset. Close if it stays negative.
+
+## Liquidation on the short side
+
+The short position is leveraged, which means it is backed by a margin buffer rather
+than the full amount.
+
+If the price rises far enough, that buffer runs out and the exchange closes the
+position for you. This is liquidation. You lose the buffer, and worse, your hedge is
+gone while you still hold the asset. You are now fully exposed to the price.
+
+Higher leverage makes this happen after a smaller move.
+
+**What you can do.** Use low leverage. Keep spare funds on the exchange so you can top
+up the buffer. Watch it after large price moves.
+
+## Forced closure even when you are safe
+
+This one surprises people, and it is worth understanding.
+
+When an exchange cannot find a buyer for a liquidated position, it closes somebody
+else's profitable position instead to balance the books. This is called auto
+deleveraging.
+
+Exchanges pick which positions to close by ranking them, and the ranking favours
+positions that are profitable and leveraged. A profitable leveraged short is exactly
+what the Kimia strategy holds.
+
+Being hedged does not protect you. Only the perp side gets closed, leaving you holding
+the asset with no hedge, without having done anything wrong and without warning.
+
+**What you can do.** Very little, directly. Lower leverage reduces your ranking. It is
+a real risk of the strategy and it is not modelled in any published return figure,
+including ours.
+
+## The hedge is approximate
+
+The two sides are sized from prices captured moments apart, and each exchange rounds
+order sizes differently. When the two sides live on different exchanges, their prices
+can drift apart independently.
+
+The result is that your exposure is close to zero, not zero. Over a long hold, that
+gap accumulates.
+
+## Exchange risk
+
+Your funds sit at Hyperliquid or Pacifica. If either exchange is hacked, halts
+withdrawals, or fails, your deposit is at risk regardless of anything Kimia does.
+
+Pacifica is a newer venue than Hyperliquid. Size accordingly.
+
+## Software risk
+
+Kimia is early software. It places real orders with real money.
+
+Its safety checks refuse unsafe orders rather than proceeding, which is the right
+default, but no amount of checking makes early software equivalent to mature software.
+
+The permission you grant is limited to trading and cannot withdraw funds, which caps
+the worst case. It does not cap the risk of a badly placed or badly timed order.
+
+## Fees exceeding yield
+
+Covered in [What it costs](/using-kimia/what-it-costs), and it deserves listing here
+because it is the most common way people actually lose money on this strategy.
+
+Open and close frequently enough and the fees will exceed everything the funding rate
+paid you, no matter how good the rate was.
+
+## What is not a risk
+
+Worth stating clearly, because these worry people unnecessarily.
+
+Kimia cannot withdraw your funds. The permission is enforced by the exchange.
+
+A large unrealized loss on one side of your position, when matched by a gain on the
+other, is the hedge working correctly.
+
+Kimia being offline does not affect an open position. It stays open at the exchange,
+and you can close it through the exchange directly.
+
+<Warning>
+Start small. Hold one position through a full cycle, including a period of negative
+funding, before committing an amount that would hurt to lose.
+</Warning>
