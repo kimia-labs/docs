@@ -4,8 +4,12 @@ description: "Terms you will meet, in plain language."
 ---
 
 **Agent**
-An address Kimia creates and you approve, allowed to place orders on your exchange
-account but not to withdraw funds.
+An address Kimia creates and you bind, allowed to place orders on your Hyperliquid or
+Pacifica account but not to withdraw funds.
+
+**APR**
+Annual percentage rate. A rate multiplied out to a year without compounding. Kimia's
+Carry APR is the next hour's expected funding rate times 8,760.
 
 **Auto deleveraging**
 When an exchange closes somebody's profitable position to cover a loss it cannot
@@ -15,6 +19,19 @@ otherwise absorb. It can affect you even when your position is perfectly safe. S
 **Basis**
 The gap between the price of an asset and the price of its perpetual future. When it
 moves, a hedge that was exact becomes slightly inexact.
+
+**Bridge**
+A service that moves tokens from one blockchain to another. Kimia uses Across to move
+USDC from Solana to Hyperliquid.
+
+**Builder fee**
+A fee an exchange collects on behalf of the app that placed the order. It is how
+Kimia's fee is charged. See [What it costs](/using-kimia/what-it-costs).
+
+**Carry**
+Earning from holding a position over time, rather than from the price changing. Here,
+the funding collected by the short. Cash and carry means buying the asset and shorting
+it to collect that funding.
 
 **Delta**
 Exposure to price. A position with high delta gains and loses as the price moves.
@@ -34,6 +51,18 @@ tethered to the real one. The source of your yield.
 **Hedge**
 A position taken to cancel out the risk of another one.
 
+**Invite code**
+A code, `KIM` followed by eight letters or digits, needed to join the private beta.
+Whoever's code you use becomes your referrer.
+
+**Isolated margin**
+Margin that backs one position only. If it runs out, only that position is
+liquidated, and the rest of your balance does not come to its rescue.
+
+**Jupiter**
+A Solana exchange that swaps tokens directly from your wallet. Kimia uses it for the
+spot side only.
+
 **Leverage**
 Controlling a larger position than the money you put up. Increases both the share of
 your capital that earns and the chance of liquidation.
@@ -50,8 +79,9 @@ Money set aside to back a leveraged position. The buffer that absorbs adverse pr
 moves.
 
 **Master wallet**
-Your main address. Holds the exchange account and the money. Signs once, during
-setup.
+One of two wallets, Ethereum and Solana, created for you by Privy when you sign in.
+Holds your exchange accounts and your money. Signs the agent binding and fee approval
+once per exchange, and every Jupiter swap.
 
 **Notional**
 The full value of a position, as opposed to the money you posted to open it. A 500
@@ -60,6 +90,13 @@ USD position at 5x leverage has a notional of 500 USD and used 100 USD of margin
 **Perpetual future, or perp**
 A contract for betting on an asset's price with leverage that never expires. Kept in
 line with the real price by the funding rate.
+
+**Privy**
+The sign-in provider Kimia uses. It creates and secures your master wallets until you
+export their keys.
+
+**Referral**
+Someone who joined using your invite code. See [Referrals](/using-kimia/referrals).
 
 **Short**
 A position that gains when the price falls. The side that usually collects funding.
@@ -72,5 +109,6 @@ own order moving the market.
 Buying the asset itself, outright, with no leverage and no expiry.
 
 **Stale data**
-Market data old enough that Kimia will not price an order against it. Causes a refusal
-rather than a risky order.
+Market data old enough that Kimia will not price an order against it. A venue is
+treated as stale after about 90 seconds without an update. Causes a refusal rather
+than a risky order. Closing is not affected.

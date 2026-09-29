@@ -69,15 +69,24 @@ The gains shrink quickly after about 3x, and the risk does not. Higher leverage 
 a smaller price move can trigger a liquidation on the short side, which breaks the
 hedge at the worst possible moment. See [Risks](/safety/risks).
 
-## Two exchanges, not one
+## Three venues
 
-Kimia works across two venues, Hyperliquid and Pacifica. Sometimes the best
-combination is buying the asset on one and shorting it on the other, because their
-funding rates differ.
+Kimia works across three venues.
 
-This matters for a practical reason: the two exchanges live on different blockchains
-and nothing moves money between them. You fund each one separately. See
-[Add funds](/getting-started/add-funds).
+| Venue | Buy the asset | Sell the perp | Runs on |
+|---|---|---|---|
+| Hyperliquid | Yes | Yes | Its own chain, HyperCore |
+| Pacifica | Yes | Yes | Solana |
+| Jupiter | Yes | No | Solana |
+
+Sometimes the best combination is buying the asset on one venue and shorting it on
+another, because prices and funding rates differ. Kimia marks the venue it
+recommends for each side.
+
+This matters for a practical reason: the venues live on different blockchains. The
+in-app deposit splits your USDC between Solana and Hyperliquid for you, but once it
+is there, nothing moves money between them automatically. See
+[Deposit and bridge](/getting-started/add-funds).
 
 ## What you are actually being paid for
 

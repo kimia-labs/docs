@@ -31,6 +31,7 @@
             "group": "Getting started",
             "pages": [
               "getting-started/what-you-need",
+              "getting-started/invite-code",
               "getting-started/create-your-account",
               "getting-started/add-funds",
               "getting-started/first-position"
@@ -41,7 +42,9 @@
             "pages": [
               "using-kimia/your-position",
               "using-kimia/closing",
-              "using-kimia/what-it-costs"
+              "using-kimia/what-it-costs",
+              "using-kimia/referrals",
+              "using-kimia/portfolio-and-leaderboard"
             ]
           },
           {
@@ -57,6 +60,13 @@
             "pages": [
               "glossary",
               "faq"
+            ]
+          },
+          {
+            "group": "Legal",
+            "pages": [
+              "legal/terms-of-use",
+              "legal/privacy-policy"
             ]
           }
         ]

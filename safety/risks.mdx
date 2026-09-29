@@ -19,12 +19,14 @@ Your position then costs you money every hour instead of paying you.
 This is not rare. It happens during sharp downturns, which is also when you are least
 likely to want to close.
 
-**What you can do.** Watch the rate on your asset. Close if it stays negative.
+**What you can do.** Watch the rate on your asset. Close if it stays negative. Kimia
+does not close for you.
 
 ## Liquidation on the short side
 
 The short position is leveraged, which means it is backed by a margin buffer rather
-than the full amount.
+than the full amount. Kimia uses isolated margin, so that buffer is only the margin
+posted for that position. The rest of your balance does not back it.
 
 If the price rises far enough, that buffer runs out and the exchange closes the
 position for you. This is liquidation. You lose the buffer, and worse, your hedge is
@@ -32,8 +34,8 @@ gone while you still hold the asset. You are now fully exposed to the price.
 
 Higher leverage makes this happen after a smaller move.
 
-**What you can do.** Use low leverage. Keep spare funds on the exchange so you can top
-up the buffer. Watch it after large price moves.
+**What you can do.** Use low leverage. Watch the margin after large price moves, and
+add to it at the exchange if needed. Kimia does not top it up for you.
 
 ## Forced closure even when you are safe
 
@@ -57,27 +59,40 @@ including ours.
 ## The hedge is approximate
 
 The two sides are sized from prices captured moments apart, and each exchange rounds
-order sizes differently. When the two sides live on different exchanges, their prices
-can drift apart independently.
+order sizes differently. When the two sides live on different venues, their prices
+can drift apart independently. That drift tends to be largest exactly when funding is
+most attractive.
 
 The result is that your exposure is close to zero, not zero. Over a long hold, that
 gap accumulates.
 
-## Exchange risk
+## Exchange and venue risk
 
-Your funds sit at Hyperliquid or Pacifica. If either exchange is hacked, halts
-withdrawals, or fails, your deposit is at risk regardless of anything Kimia does.
+Your funds sit at Hyperliquid, at Pacifica, or in your Solana master wallet as tokens
+bought through Jupiter. If an exchange is hacked, halts withdrawals, or fails, your
+deposit there is at risk regardless of anything Kimia does.
 
 Pacifica is a newer venue than Hyperliquid. Size accordingly.
 
+Deposits into Hyperliquid pass through Across, a cross-chain bridge. Bridges carry
+their own risk while funds are in transit.
+
+## Wallet risk
+
+Your master wallets are created and held by Privy until you export their keys. If you
+lose access to your sign-in wallet, you may lose access to them too. Export your keys
+and keep them safe. See [Your money](/safety/your-money#getting-your-keys).
+
+Once exported, anyone who obtains those keys controls your funds.
+
 ## Software risk
 
-Kimia is early software. It places real orders with real money.
+Kimia is unaudited software in private beta. It places real orders with real money.
 
 Its safety checks refuse unsafe orders rather than proceeding, which is the right
 default, but no amount of checking makes early software equivalent to mature software.
 
-The permission you grant is limited to trading and cannot withdraw funds, which caps
+The agent's permission is limited to trading and cannot withdraw funds, which caps
 the worst case. It does not cap the risk of a badly placed or badly timed order.
 
 ## Fees exceeding yield
@@ -92,13 +107,13 @@ paid you, no matter how good the rate was.
 
 Worth stating clearly, because these worry people unnecessarily.
 
-Kimia cannot withdraw your funds. The permission is enforced by the exchange.
+Kimia cannot withdraw your funds. The agent's limits are enforced by the exchange.
 
 A large unrealized loss on one side of your position, when matched by a gain on the
 other, is the hedge working correctly.
 
 Kimia being offline does not affect an open position. It stays open at the exchange,
-and you can close it through the exchange directly.
+and you can close it there directly using your exported master wallet key.
 
 <Warning>
 Start small. Hold one position through a full cycle, including a period of negative

@@ -1,78 +1,135 @@
 ---
 title: "Open your first position"
-description: "Choosing an asset, a size, and a leverage."
+description: "Choosing an asset, venues, a size and a leverage."
 ---
+
+Positions are opened from the trade ticket on the **Trading** page. The ticket has
+two tabs. **Cash & carry** is the strategy these docs describe: buy the asset, short
+it as a perp. **Dual perp** is not available yet.
 
 <Steps>
   <Step title="Pick an asset">
-    The main screen lists assets with the funding rate each exchange is paying right
-    now, shown as an annualized percentage.
+    The asset picker lists every asset Kimia can pair, with its price, the spread
+    between spot and perp, and its **Carry APR**. You can sort by any of them or
+    search by name.
 
-    A higher rate is not automatically better. Rates on smaller assets swing harder
-    and reverse more often. Bitcoin and Ethereum pay less and behave more predictably.
+    Carry APR is the funding rate the best short venue is expected to pay over the
+    next hour, multiplied out to a year. It is gross, before any fees. A higher rate
+    is not automatically better: rates on smaller assets swing harder and reverse
+    more often. Bitcoin and Ethereum pay less and behave more predictably.
   </Step>
 
-  <Step title="Choose how much">
-    Enter the amount you want to commit. Kimia splits it between the two sides for
-    you.
+  <Step title="Pick the venues">
+    **Spot venue** is where the asset is bought: Hyperliquid, Pacifica or Jupiter.
+    **Short venue** is where the perp is sold: Hyperliquid or Pacifica. The venue
+    Kimia recommends is marked with a dot.
 
-    Each side must clear 10 USD, so very small amounts will be rejected.
+    Using the same exchange for both sides is simplest. Different venues can pay
+    more, but each side is funded separately.
+  </Step>
+
+  <Step title="Enter the amount">
+    Type how much USDC to commit in **Total USDC**, or press **Max**. Kimia splits it
+    between the two sides for you.
+
+    Each side must be worth at least 10 USD. At 1x that means 20 USD in total, and at
+    2x it means 15 USD.
   </Step>
 
   <Step title="Choose leverage">
-    This decides how much of your money earns and how much sits as a safety buffer.
+    The slider runs from 1x up to the maximum the asset allows. It starts at 2x.
 
-    Start at 1x or 2x. The extra yield above 3x is small and the added fragility is
-    not.
+    Leverage decides how much of your money earns and how much sits as a safety
+    buffer on the short. Start at 1x or 2x. The extra yield above 3x is small and the
+    added fragility is not.
   </Step>
 
-  <Step title="Confirm">
-    Kimia checks the order against its safety limits, then places both sides. No
-    wallet signature is needed, because you already approved the agent.
+  <Step title="Open">
+    The summary under the ticket shows the size of each side, the margin posted, the
+    net exposure and the carry at the current rate. Check it, then press
+    **Open position**.
+
+    If an exchange is not set up yet, the button reads **Bind Hyperliquid agent** or
+    **Bind Pacifica agent** instead. See
+    [Create your account](/getting-started/create-your-account).
   </Step>
 </Steps>
 
-## What happens when you confirm
+<Note>
+There is no separate confirmation screen. Pressing **Open position** places the
+orders. The summary is your last look.
+</Note>
+
+## Signatures
+
+With Hyperliquid or Pacifica on both sides, no signing prompt appears. The agent you
+bound signs the orders.
+
+If Jupiter is the spot venue, your Solana master signs the purchase. You will see one
+prompt, showing the swap and its fee.
+
+## What happens when you press Open
 
 Kimia buys the asset first, then opens the short. The order matters. If the second
-step fails for any reason, you are left holding the asset, which is a position you
-understand and can sell.
+step fails, you are left holding the asset, which is a position you understand and
+can sell.
 
 Doing it the other way round could leave you holding only a short position, which
 loses money if the price rises. Kimia does not do that.
 
-## Reading the confirmation
+Opening also changes two settings on that asset for your exchange account: it sets
+the margin mode to isolated, and sets the leverage you chose. If you also trade that
+account by hand, be aware of this.
 
-Once both sides are open you will see them in your positions list. Two entries, one
-long and one short, roughly equal in size.
+## Reading the result
 
-They will not be exactly equal. Prices move between the two orders, and each exchange
-rounds sizes differently. A small mismatch is normal and is the reason your returns
-will not track the funding rate perfectly.
+The position appears as one row in the **Positions** list at the bottom of the page,
+showing both sides together.
+
+The two sides will not be exactly equal. Prices move between the two orders, and each
+exchange rounds sizes differently. A small mismatch is normal.
+
+## If the ticket will not let you open
+
+The ticket checks a few things before the button works:
+
+| Message | What to do |
+|---|---|
+| Each leg needs at least $10 notional | Increase the amount, or lower the leverage |
+| That is more than the $X these venues can fund | Reduce the amount, or deposit more |
+| \{Asset\} allows at most Nx | Lower the leverage |
+| \{Venue\} does not list \{Asset\} spot | Pick one of the spot venues it names |
+
+A warning that spot is some percent above or below the perp does not block you, but
+read it. That gap is a cost on entry.
 
 ## If the order is refused
 
-Kimia checks every order before placing it and will refuse rather than proceed if
+After you press Open, Kimia checks the order again and refuses rather than proceed if
 something is wrong. Common reasons:
 
-| Message mentions | What to do |
+| Refusal mentions | What to do |
 |---|---|
-| Notional or size limit | Reduce the amount. There is a cap per position |
-| Leverage limit | Lower the leverage |
-| Market not available | That asset is not currently tradeable through Kimia |
+| Notional or size limit | Reduce the amount. The cap is 10,000 USD per order |
+| Notional budget | You have opened a lot in the last hour. Wait and try again |
+| Leverage limit | Lower the leverage. The cap is 20x, or less if the asset allows less |
+| Market not allowed | That asset is not currently tradeable through Kimia |
+| Slippage | The price moved too far while placing. Try again |
 | Stale or unavailable market data | Wait a moment and try again |
 | Residue or dust | Pick a different asset. This one cannot be exited cleanly |
+| Reduce only | Opening is paused for your account or that exchange. Closing still works |
+| Builder fee not approved | Approve Kimia's fee on that exchange, then try again |
 
 A refusal is the system working. It means the order was understood and judged unsafe,
-not that something broke. See [Troubleshooting](/safety/troubleshooting) if you see
-something else.
+not that something broke. See [Troubleshooting](/safety/troubleshooting).
 
 ## After it opens
 
-Funding is paid hourly by the exchange, directly into the account holding the short
-position. You do not need to claim it.
+Funding is paid by the exchange every hour, directly into the account holding the
+short. You do not need to claim it. The positions list shows a countdown to the next
+payment.
 
 There is nothing to do while a position is open. It stays open whether or not you are
-signed in.
+signed in. Kimia does not rebalance it or top up its margin for you.
 
 Next: [Your position](/using-kimia/your-position).

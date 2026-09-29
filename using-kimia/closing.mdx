@@ -3,55 +3,70 @@ title: "Closing a position"
 description: "Getting your money back out."
 ---
 
-Close from your positions list. Kimia unwinds both sides for you.
+Press **Close** on the position's row. Kimia unwinds both sides for you.
 
 ## What happens
 
-The short side closes first, then the asset is sold.
+On Hyperliquid and Pacifica, the short closes first, then the asset is sold. No
+signing prompt appears.
 
 That order is deliberate. If the second step fails, you are left holding the asset,
-which you can sell yourself at any time. The reverse order could leave you holding
-only a short position, which is exposed to the price rising.
+which you can sell at any time. The reverse order could leave you holding only a
+short position, which is exposed to the price rising.
 
-On Hyperliquid, any margin left sitting behind the closed short is swept back
-automatically once the position is gone.
+**If Jupiter holds the spot side**, the order flips. Your Solana master signs the
+Jupiter sale first, then Kimia closes the short. If you reject the signing prompt,
+nothing closes.
 
-## Partial closes
+**On Hyperliquid**, margin released from the closed short is swept back to your spot
+balance automatically. Hyperliquid's own balances screen shows spot and perp
+separately, so look at spot.
 
-You can close one side on its own if you need to. Be clear about what that means:
-closing one side removes the hedge. What remains is a plain directional bet, either
-on the price rising or on it falling.
+## Selling the spot side on its own
 
-If you do this by accident, close the other side too.
+The **Spot Holdings** tab has a **Sell** button on each holding. It sells the spot
+side only.
+
+Be clear about what that means when the holding is part of an open pair: selling it
+removes the hedge. What remains is a short position, which loses money if the price
+rises. If you do this by accident, close the pair too.
+
+There is no button to close only the short. Use **Close** on the pair.
 
 ## The dust that gets left behind
 
 You will usually be left with a very small amount of the asset, worth a fraction of a
-dollar. It is not a bug and it is not recoverable.
+dollar. It shows under **Spot Holdings**.
 
 The reason is that exchanges charge spot fees in the asset you receive, and they only
 accept order sizes in fixed increments. Buy a round number, pay the fee in the asset,
 and the amount you now hold is no longer a round number. Selling all of it is
 impossible, so a remainder stays behind.
 
-Kimia refuses to open positions on assets where this remainder would be large. The
-limit is one dollar. Assets that cannot be exited cleanly within that are not offered.
+On Hyperliquid, dust under one dollar is converted automatically once a day, at 00:00
+UTC.
+
+Kimia refuses to open positions on assets where this remainder would be larger than
+one dollar. You will see a refusal mentioning residue or dust.
 
 ## How long it takes
 
 Both sides close within seconds under normal conditions. The funds return to your
-exchange account, not to Kimia.
+exchange account or master wallet, not to Kimia.
 
-From there you withdraw through the exchange directly, the same way you deposited.
+From there you can open a new position, or withdraw. See
+[Deposit and bridge](/getting-started/add-funds#withdrawing).
 
 ## If a close fails partway
 
-Check your positions list. Whatever is still open is still open, and you can close it
-again.
+Check both tabs. Whatever is still open is still open, and you can close it again.
 
-If one side closed and the other did not, close the remaining side promptly. You are
-unhedged until you do, which means you are exposed to the price.
+If the short closed but the asset is still showing under **Spot Holdings**, sell it
+with **Sell**. If the asset sold but the short is still open, close it promptly. You
+are unhedged until you do.
+
+Closing still works when market data is stale, and when opening has been paused.
 
 If closing keeps failing, see [Troubleshooting](/safety/troubleshooting). You can also
-close positions directly through the exchange's own interface, which does not depend
-on Kimia working.
+close positions directly at the exchange, which does not depend on Kimia working.
+That needs your master wallet's key, from **Export key** in the account menu.

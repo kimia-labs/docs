@@ -1,62 +1,107 @@
 ---
-title: "Add funds"
-description: "Depositing into your exchange accounts."
+title: "Deposit and bridge"
+description: "Getting USDC onto each exchange."
 ---
 
-Your money goes into your own account at the exchange. Kimia never holds it and
-never takes possession of it.
+Your money goes into your own master wallets and your own exchange accounts. Kimia
+never holds it.
 
-Each exchange is funded separately. There is no transfer between them.
+Open the account menu, top right. It has three tabs: **Wallets**, **Deposit** and
+**Bridge**.
 
-## Hyperliquid
+## The Deposit tab
 
-Hyperliquid accepts USDC. Deposit through Hyperliquid's own interface, using the same
-wallet you signed in to Kimia with.
+This is the easiest route. Enter one amount of USDC and Kimia splits it evenly:
 
-Once the deposit confirms, your balance appears in Kimia automatically. Nothing needs
-connecting or importing.
+| Half | Where it goes |
+|---|---|
+| Solana | Your Solana master, as USDC on Solana |
+| HyperCore | Bridged by Across to USDC on HyperCore, credited to your Ethereum master |
+
+The money comes from the wallet you signed in with, so that wallet needs USDC on
+Solana and about 0.01 SOL. Your wallet asks you to sign twice, once for each half.
+The bridged half usually arrives within seconds.
 
 <Note>
-Deposit before approving the agent on Hyperliquid. The exchange refuses agent
-approvals on an empty account.
+The HyperCore figure shown before you confirm is what Across says will actually
+arrive, after its fee. It is slightly less than half of what you send.
 </Note>
 
-## Pacifica
+## The Bridge tab
 
-Pacifica runs on Solana and accepts USDC on Solana.
+Moves USDC on Solana to your Hyperliquid account without the split. Use it to top up
+the Hyperliquid side on its own. It asks for one signature.
+
+## Depositing directly
+
+On the **Wallets** tab, each master wallet has a **Deposit** button that shows its
+address and a QR code.
+
+- **Ethereum master.** Send only USDC on HyperCore.
+- **Solana master.** Send only USDC on Solana.
+
+Sending any other token or network to these addresses risks losing it.
+
+## Bridge fees and limits
+
+| | |
+|---|---|
+| Across fee | Roughly 1.26 USD flat, whatever the size. The quote is authoritative |
+| Hard minimum | Each half must be worth more than the fee, so about 2.52 USD in total |
+| Suggested minimum | 20 USD. Below that the app warns you, since each side of a position needs at least 10 USD |
+| SOL needed | About 0.01 SOL in your sign-in wallet |
+
+## Where the money lands
+
+**Hyperliquid.** Bridged USDC arrives in your HyperCore spot balance. When you open a
+position, Kimia moves whatever the short side needs from spot to perp for you.
+
+**Solana.** USDC lands in your Solana master. That balance buys Jupiter spot directly.
+
+**Pacifica.** A Pacifica short needs USDC deposited into Pacifica itself, not just
+sitting in your Solana master. The account menu shows this as **Pacifica equity** and
+**Pacifica available**. Until the first deposit it reads "No Pacifica account yet".
 
 <Warning>
-The Pacifica deposit screen is not yet part of the main Kimia app. For now, deposit
-through Pacifica directly, using the Solana address shown in your Kimia account.
+Moving USDC from your Solana master into Pacifica is not yet part of the Kimia app.
+For now, use **Export key** on the Solana master card, import that key into a Solana
+wallet, and deposit at Pacifica directly. Pacifica's minimum deposit is 10 USDC, plus
+a little SOL for the transaction.
 
-Approving the agent is not enough on its own. Without a deposit, the short side of
-your position will be refused by the exchange, and the position will not open.
+Binding the agent is not enough on its own. Without a Pacifica deposit, the short side
+of your position will be refused and the position will not open.
 </Warning>
 
-## Which one to fund
+## Which exchange to fund
 
-If you are starting out, pick one and fund only that one. A position that lives
-entirely on a single exchange is simpler to reason about and cheaper to close.
+If you are starting out, a position with Hyperliquid on both sides is the simplest:
+one deposit via the Bridge tab, no extra signatures per trade, and a single account
+to watch.
 
-Funding both opens up combinations where you buy on one exchange and short on the
-other, which is sometimes the better rate. It also means keeping enough spare balance
-on both sides, since Kimia cannot move money between them to cover a shortfall.
+Cross-exchange pairs, such as Jupiter spot with a Hyperliquid short, sometimes pay
+better. They also mean keeping enough balance on both sides, since Kimia cannot move
+money between exchanges to cover a shortfall.
 
 ## How much to leave spare
 
 Do not put every last dollar into a position.
 
-The short side needs a margin buffer. If the price rises sharply, that buffer absorbs
-the move. If it runs out, the exchange closes the position for you at a loss, which is
-called liquidation, and your hedge disappears at the moment you most need it.
+The short side is backed by a margin buffer held against that position alone,
+called isolated margin. If the price rises sharply, that buffer absorbs the move. If
+it runs out, the exchange closes the position at a loss, which is called
+liquidation, and your hedge disappears when you most need it.
 
-Keeping some unused balance on the exchange gives you room to top up rather than
-being forced out. See [Risks](/safety/risks).
+Spare balance on the exchange does not protect the short automatically. It gives you
+funds to add to the position's margin yourself if needed. See [Risks](/safety/risks).
 
 ## Withdrawing
 
-You withdraw through the exchange, the same way you deposited. Kimia is not involved
-and cannot block it.
+Kimia has no withdraw button. You withdraw through the exchange, or from the master
+wallet on-chain, and Kimia cannot block it.
+
+Because the master wallets were created for you by Privy, you first need their keys.
+Use **Export key** on the relevant card in the account menu, import the key into a
+wallet you control, then withdraw as normal.
 
 Close any open position first. Funds backing a live position are not available to
 withdraw.

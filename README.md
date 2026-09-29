@@ -37,10 +37,11 @@ docs.json                 site config and navigation
 index.mdx                 what Kimia is
 how-it-works.mdx          funding rates and delta-neutral, in plain language
 is-this-for-me.mdx        who this suits and who it does not
-getting-started/          what you need, account, funding, first position
-using-kimia/              reading a position, closing, costs
+getting-started/          what you need, invite code, account, deposit and bridge, first position
+using-kimia/              reading a position, closing, costs, referrals, portfolio and leaderboard
 safety/                   risks, custody, troubleshooting
 glossary.mdx  faq.mdx     reference
+legal/                    terms of use, privacy policy (.md)
 logo/  favicon.png        brand assets
 ```
 

@@ -1,68 +1,89 @@
 ---
 title: "Create your account"
-description: "Signing in, and the one permission Kimia asks for."
+description: "Your wallets, and the permissions Kimia asks for."
 ---
 
 <Steps>
   <Step title="Sign in with your wallet">
-    Open the app and connect Phantom, MetaMask or Solflare.
-
-    Kimia creates two accounts for you behind the scenes, one on Ethereum and one on
-    Solana, because the two exchanges need different kinds of address. You will see
-    both listed in your account. They belong to you.
+    Connect Phantom, MetaMask or Solflare, enter your invite code and accept the risk
+    notice. See [Invite codes](/getting-started/invite-code).
   </Step>
 
-  <Step title="Approve trading on an exchange">
-    Pick Hyperliquid or Pacifica and approve it. Your wallet will ask you to sign a
-    message.
+  <Step title="Kimia creates your master wallets">
+    Behind the scenes, Kimia's sign-in provider, Privy, creates two wallets for you:
+    an **Ethereum master** and a **Solana master**. The two exchanges need different
+    kinds of address, which is why there are two.
 
-    Read it before you sign. It says you are authorising a second address to trade on
-    your behalf. It does not authorise moving or withdrawing funds.
+    These are the wallets that hold your exchange accounts and your money. They
+    belong to you. Open the account menu, top right, to see both addresses and their
+    balances.
   </Step>
 
-  <Step title="Repeat for the second exchange, if you want both">
-    Each exchange needs its own approval. The signature is different on each because
-    the two chains work differently.
+  <Step title="Bind an agent on each exchange">
+    You do this from the trade ticket, the first time you trade. When an exchange is
+    not yet set up, the ticket's button reads **Bind Hyperliquid agent** or
+    **Bind Pacifica agent**. Press it and approve the signing prompt.
+
+    A position that uses both exchanges needs both bound, one at a time. Jupiter has
+    no agent of its own. It needs Pacifica bound, because both use your Solana master.
+  </Step>
+
+  <Step title="Approve Kimia's fee on each exchange">
+    Each exchange also asks your master wallet to approve Kimia's fee once. The
+    approval sets a ceiling of 0.1 percent. Kimia currently charges 0.05 percent on
+    the short side only. See [What it costs](/using-kimia/what-it-costs).
   </Step>
 </Steps>
 
-## What you just approved
+## Your wallets at a glance
 
-Kimia creates a separate address called an **agent**. The approval tells the exchange
-that this agent is allowed to place and cancel orders on your account.
+| Wallet | Created by | What it does |
+|---|---|---|
+| The wallet you sign in with | You | Proves who you are. Pays for in-app deposits |
+| Ethereum master | Privy, for you | Holds your Hyperliquid account |
+| Solana master | Privy, for you | Holds your Pacifica account and any Jupiter spot holdings |
+| Agent | Kimia | Places and cancels orders on Hyperliquid and Pacifica. Holds no money |
+
+Your sign-in wallet is not your exchange account. Money sent to Hyperliquid or
+Pacifica from Phantom or MetaMask directly lands in a different account that Kimia
+cannot see. Always fund the master wallets, or use the in-app deposit.
+
+## What binding the agent allows
+
+The agent is a separate address Kimia creates. Binding tells the exchange that this
+agent may trade on your master wallet's account.
 
 What the agent can do:
 
 - Open and close positions
 - Cancel orders
-- Change the leverage on your account
+- Change leverage and margin mode on your account
+- On Hyperliquid, move USDC between your own spot and perp balances
 
 What the agent cannot do:
 
 - Withdraw your funds
-- Move money to another address
+- Send money to another address
 - Approve anything else on your behalf
 
-This is why the signature is worth reading rather than clicking through. The
-distinction between trading permission and withdrawal permission is the whole
-security model, and it is enforced by the exchange, not by Kimia.
+The line between trading and withdrawing is enforced by the exchange. You can revoke
+the agent at any time. See [Your money](/safety/your-money).
 
-You can revoke it at any time. See [Your money](/safety/your-money).
+## When you will be asked to sign again
 
-## One signature, once
+On Hyperliquid and Pacifica, the agent signs every order. After binding and the fee
+approval, opening and closing there happens without a prompt.
 
-After this approval you will not be asked to sign again. Opening and closing
-positions happens without a wallet prompt.
+Jupiter is different. Solana has no way to delegate trading, so your Solana master
+signs every Jupiter purchase and every Jupiter sale. Expect one prompt per trade when
+Jupiter is one side of your position.
 
-Some people find this surprising. It is the point of the agent: without it, every
-adjustment would need you present and signing.
+## If Hyperliquid rejects the binding
 
-## If Hyperliquid rejects the approval
+Hyperliquid refuses to bind an agent to an empty account. If you have not deposited
+yet, binding fails with a message about the account being unfunded.
 
-Hyperliquid requires your account to hold some funds before it will accept an agent
-approval. If you have not deposited yet, the approval fails with a message about the
-account being unfunded.
+Deposit first, then bind. Pacifica lets you bind before depositing, but a Pacifica
+order still needs funds on the exchange.
 
-Deposit first, then approve. The Pacifica side does not have this requirement.
-
-Next: [Add funds](/getting-started/add-funds).
+Next: [Deposit and bridge](/getting-started/add-funds).
