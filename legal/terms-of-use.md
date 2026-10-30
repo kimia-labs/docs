@@ -13,7 +13,9 @@ By using Kimia you agree to these terms. If you do not agree, do not use it.
 ## 1. What Kimia is
 
 Kimia is a software interface. It helps you open and close delta-neutral positions on
-third party exchanges, currently Hyperliquid, Pacifica and Jupiter.
+third party venues. Short positions are placed on Hyperliquid. Spot positions are
+placed on Hyperliquid or bought through the Kimia vault, a program on Solana that routes
+swaps through Jupiter.
 
 Kimia is in private beta. Access requires an invite code, and the software has not
 been audited.
@@ -42,21 +44,27 @@ in the exchange accounts those wallets hold. You can export the keys to those wa
 at any time, and withdraw directly from the exchange or on-chain without our
 involvement or permission.
 
+Spot bought through Kimia is held in the Kimia vault, a program on Solana owned by your
+Solana wallet. Within that program, a key we control can buy tokens within limits you
+sign, sell tokens you hold, and return your funds to your own Solana wallet. The program
+does not allow it to send your funds to any other address. We may upgrade the program.
+
 You are solely responsible for your wallets, your private keys, and your seed phrase,
 including keys you export.
 We cannot recover them, reverse a transaction, or restore access to a lost wallet.
 
 ## 4. The trading authorization
 
-To use Kimia you approve an agent address to place orders on your Hyperliquid and
-Pacifica accounts.
+To use Kimia you approve an agent address to place orders on your Hyperliquid
+account.
 
 That authorization permits trading only. It does not permit withdrawing or
 transferring your funds to another address, and the limit is enforced by the exchange
 rather than by us.
 
-You also approve, once per exchange, the fee described in section 7. Trades on
-Jupiter are not covered by the agent and are signed by you individually.
+You also approve, once, the fee described in section 7. To trade spot through the
+Kimia vault, you sign an authorization for each token, which lasts 30 days and which you
+may revoke at any time.
 
 You may revoke the authorization at any time through the exchange. Revoking does not
 close open positions, which remain yours to manage.
@@ -100,8 +108,8 @@ charged by third parties and are not ours.
 
 ## 8. Third party services
 
-Kimia depends on services we do not control, including Hyperliquid, Pacifica, Jupiter,
-Across, Privy, and public blockchain networks.
+Kimia depends on services we do not control, including Hyperliquid, Jupiter, Circle,
+Privy, and public blockchain networks.
 
 Your use of those services is governed by their terms, not ours. We are not
 responsible for their acts, omissions, outages, or losses they cause.
@@ -154,8 +162,8 @@ Continuing to use Kimia after a change means you accept the revised terms.
 
 ## 14. Ending your use
 
-You may stop at any time. Close your positions, revoke the agent authorization at each
-exchange, and withdraw your funds.
+You may stop at any time. Close your positions, withdraw your funds, revoke your vault
+authorizations, and revoke the agent authorization at Hyperliquid.
 
 We may suspend or terminate your access at any time, including where we believe use
 violates these terms or applicable law. Termination does not affect your ability to

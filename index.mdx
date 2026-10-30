@@ -43,21 +43,23 @@ money instead of paying you.
 
 ## Where your money lives
 
-Kimia does not hold your funds. Your money sits in wallets created for you when you
-sign in, and in your own accounts at the exchanges Kimia trades on: Hyperliquid and
-Pacifica for the short, and Hyperliquid, Pacifica or Jupiter for buying the asset.
-You can withdraw at any time without asking Kimia for permission.
+The short side always sits on Hyperliquid, in an exchange account owned by a wallet
+created for you when you sign in. Kimia can trade there but cannot withdraw.
 
-What you grant Kimia is a trading permission, not custody. See
-[Your money](/safety/your-money) for exactly what that permission allows and how to
-revoke it.
+The spot side sits either on Hyperliquid too, or in the **Kimia vault**: an on-chain
+program your Solana wallet owns. Inside the vault, Kimia can buy within limits you
+sign, sell, and send funds back to you. It cannot send them anywhere else.
+
+You can withdraw at any time. See [Your money](/safety/your-money) for exactly what
+Kimia can and cannot do with each.
 
 ## Private beta
 
-Kimia is currently invite only. You need an invite code from an existing user. See
-[Invite codes](/getting-started/invite-code).
+Kimia is invite only, at [beta.kimia.live](https://beta.kimia.live). You need an
+invite code from an existing user. See [Invite codes](/getting-started/invite-code).
 
 <Warning>
-Kimia is unaudited software in private beta, handling real money on live exchanges.
-Start with an amount you are willing to lose entirely while you learn how it behaves.
+Kimia, including the vault program, is unaudited software in private beta, handling
+real money on live exchanges. Start with an amount you are willing to lose entirely
+while you learn how it behaves.
 </Warning>

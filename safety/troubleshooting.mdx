@@ -8,121 +8,141 @@ description: "Common problems and what they mean."
 See [Invite codes](/getting-started/invite-code#if-your-code-is-refused) for each
 message and what it means.
 
-## Binding the agent failed
+## Binding the Hyperliquid agent failed
 
-**On Hyperliquid, with a message about an unfunded account.** The exchange requires a
-balance before it accepts an agent. Deposit first, then bind. See
-[Deposit and bridge](/getting-started/add-funds).
+**"Hyperliquid rejected the builder approval".** Despite the wording, this appears for
+any binding failure. The most common cause is an empty account: Hyperliquid refuses
+agents on unfunded accounts. Deposit to HyperCore first, then bind.
 
-**With a message that the wallet is already approved.** It worked already, possibly on
-an earlier attempt. Nothing further is needed.
+**The wallet is already approved.** It worked already. Nothing further is needed.
 
-**With a message that the address is already bound to another account.** That master
-wallet is linked to a different Kimia account. Sign in with the wallet you used
-originally.
+**The address is already bound to another account.** That master wallet is linked to a
+different Kimia account. Sign in with the wallet you used originally.
 
-**With a message about the master address.** Your exchange account is bound to a
-different wallet than the one you are signed in with. Sign in with the original
-wallet.
+## I cannot deposit or withdraw
 
-## My deposit did not arrive
+**"Connect the Solana wallet holding your USDC".** Deposits and withdrawals use the
+Solana side of your sign-in wallet. If you signed in with an Ethereum-only wallet, sign
+in again with Phantom, Solflare, or MetaMask with a Solana account.
 
-The bridged half usually lands within seconds. Check the **Wallets** tab in the
-account menu for the Ethereum master's spot balance.
+**Refused before signing.** The amount going to HyperCore is too small to cover the
+bridge fee, plus 1 USD on your first HyperCore deposit.
 
-- **Refused before signing.** The amount is too small to cover the bridge fee. Each
-  half must be worth more than about 1.26 USD
-- **Failed while signing.** Check your sign-in wallet holds about 0.01 SOL as well as
-  the USDC
-- **One half arrived and the other did not.** Each half is a separate transaction.
-  The one that arrived is in the right place. Retry the other from the **Bridge** tab
-  or by sending directly
+**Failed while signing.** Check your sign-in wallet holds about 0.007 SOL as well as
+the USDC.
 
-If a deposit still does not appear after a few minutes, check it on a block explorer
-first.
+**"Not filled yet".** The bridge is still working. Follow the transaction link before
+trying again.
+
+**"The bridge did not reach HyperCore".** Email support with the transaction link
+shown.
+
+**Withdrawal from HyperCore is short.** 0.50 USD stays behind for Hyperliquid's gas,
+and Circle's fee comes out on arrival. While a position is open, only spot balance can
+be withdrawn.
+
+**It has not arrived.** HyperCore withdrawals can take a few minutes. Press
+**Refresh balances** in the account menu, and check again before retrying.
+
+## Kimia vault
+
+**"Add SOL for fees".** Your Solana master needs at least 0.012 SOL. Send SOL to its
+address from the account menu.
+
+**"Create Solana wallet".** Your account has no Solana master yet. Press the button.
+
+**"Kimia vault unavailable".** Kimia cannot read your vault right now. Wait, or choose
+Hyperliquid spot.
+
+**"Your authorization for this token has expired".** Open the **Vault** tab and press
+**Reauthorize** on that token.
+
+**"Kimia's trading key changed".** Authorize the token again on the **Vault** tab.
+
+**"The Kimia vault is paused".** Kimia has paused buys. Nothing was traded. Withdrawals
+still work.
+
+**"The buy expired before it landed".** You took a little long to sign. Kimia prepares
+a fresh one automatically; approve it.
+
+**"Sold, but the USDC is not in the vault yet"** after **Withdraw as USDC**. The USDC
+from the sale usually goes straight to your Solana master. Check its balance before
+doing anything else.
 
 ## My position will not open
 
-**The short side is refused on Pacifica.** You have bound the agent but not deposited
-into Pacifica. USDC in your Solana master is not enough on its own. See
-[Deposit and bridge](/getting-started/add-funds#where-the-money-lands).
-
-**A message about the builder fee not being approved.** Your master wallet has not
-approved Kimia's fee on that exchange yet. Approve it, then try again.
-
-**A message about size, notional limits or budget.** There is a cap of 10,000 USD per
-order, and a limit on how much you can open per hour on each exchange. Reduce the
-amount or wait.
-
-**A message about leverage.** Lower it.
-
-**A message about slippage.** The price moved too far while the order was being
-placed. Try again.
-
-**A message about market data being stale or unavailable.** Kimia refuses to price an
-order against data it cannot verify. Wait a moment and try again.
-
-**A message about residue or dust.** That asset cannot be exited cleanly within the
-allowed limit. Choose a different one.
-
-**A message about reduce only.** Opening has been paused for your account or for that
-exchange. Closing still works.
-
-**A message about rate limiting.** Too many requests in a short time. Wait a few
-seconds.
-
-**The Jupiter signing prompt was rejected or timed out.** Nothing was bought. Press
-**Open position** again and approve the prompt.
-
 See [Open your first position](/getting-started/first-position#if-the-order-is-refused)
-for the full list.
+for each refusal and what to do. The common ones:
 
-## Only one side of my position opened
+**Size, notional limits or budget.** There is a cap of 10,000 USD per order, and a
+limit on how much you can open per hour. Reduce the amount or wait.
 
-Kimia buys the asset before opening the short, so a partial failure normally leaves
-you holding the asset rather than an unhedged short. It shows under
-**Spot Holdings**.
+**Builder approved for less than this order charges.** Kimia's fee approval is missing.
+The approval step is not in the app yet. Email support.
 
-Either sell it with **Sell**, or retry to complete the pair. Do not leave a lone short
-position open, since it is exposed to the price rising.
+**Stale or unavailable market data.** Wait a moment and try again.
 
-## A close said it worked but the asset is still there
+**Reduce only.** Opening has been paused. Closing still works.
 
-Check **Spot Holdings**. If the short closed but the spot sale did not go through,
-the asset is still held. Sell it with **Sell**.
+**Rate limiting.** Too many requests in a short time. Wait a few seconds.
+
+## The order timed out
+
+It may still land. Check your positions first. Retrying from the same ticket replays
+the same order rather than opening a second one.
+
+## Only the spot side opened
+
+Kimia shows "Short failed. Spot is open and unhedged." The spot appears under
+**Spot Holdings**, not **Positions**. Sell it with **Sell**, or open again.
+
+## A close only partly worked
+
+If Kimia says "partly closed, spot still held", check **Spot Holdings** and sell what
+is there. If it is empty, the pair is closed and only a follow-up step, such as moving
+margin back to spot, did not finish.
+
+## Prices or rates show a dash
+
+A dash means Kimia has no fresh rate for that venue, usually because the data is more
+than about 90 seconds old. It clears by itself. Kimia shows a dash rather than an old
+number.
+
+If prices pause briefly on a shared network, Kimia reconnects automatically.
 
 ## My balance looks wrong
 
-Positions read directly from the exchanges. If Kimia and the exchange disagree, the
-exchange is right.
+Press **Refresh balances** in the account menu. If Kimia and Hyperliquid disagree,
+Hyperliquid is right.
 
 On Hyperliquid, money is split between spot and perp balances. Deposits and freed
 margin land in spot. Kimia moves what a short needs into perp when you open.
 
 ## A tiny amount of the asset is left after closing
 
-Expected. See [Closing a position](/using-kimia/closing#the-dust-that-gets-left-behind)
-for why it happens.
+Expected. See [Closing a position](/using-kimia/closing#the-dust-that-gets-left-behind).
 
-## The Portfolio page shows no pairs
+## A closed pair is missing from Portfolio
 
-That list is still being wired up. Use the **Positions** list on the **Trading** page.
+Closed pairs appear after their fills are confirmed, which can take a few minutes.
+Pairs closed before 28 October 2026 are not recorded.
 
 ## The app is down
 
-Open positions are unaffected. They live at the exchange and continue to accrue
-funding whether or not Kimia is reachable.
+Open positions are unaffected. They continue to accrue funding whether or not Kimia is
+reachable.
 
-To close while Kimia is unavailable, use the exchange's own website with your
-exported master wallet key. See [Your money](/safety/your-money#getting-your-keys).
-Your positions are ordinary positions and can be managed there.
+To act while Kimia is unavailable, use your exported keys: the Ethereum master at
+Hyperliquid, the Solana master to withdraw from your vault. See
+[Your money](/safety/your-money#getting-your-keys).
 
 ## I want to stop using Kimia
 
-Close your positions, then revoke the agent on each exchange you bound. Export your
-master wallet keys and withdraw. See [Your money](/safety/your-money).
+Close your positions, withdraw everything, revoke your vault authorizations on the
+Vault tab, and revoke the Hyperliquid agent. See [Your money](/safety/your-money).
 
 ## Still stuck
 
 Email [kimia.support@gmail.com](mailto:kimia.support@gmail.com). Include your wallet
-address and the exact message you saw. Never send a private key.
+address, the exact message you saw, and any transaction link. Never send a private
+key.

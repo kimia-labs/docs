@@ -8,49 +8,61 @@ is yours.
 
 ## Kimia's fee
 
-Kimia charges **0.05 percent of the short side's size, when it opens and again when
-it closes**. That is 0.10 percent over a round trip. There is no Kimia fee on the spot
-side.
+Kimia charges **0.05 percent of the short's size, when it opens and again when it
+closes**. That is 0.10 percent over a round trip. There is no Kimia fee on the spot
+side, whether on Hyperliquid or in the Kimia vault.
 
 | Short size | Fee to open | Fee to close | Round trip |
 |---|---|---|---|
 | 500 USD | 0.25 USD | 0.25 USD | 0.50 USD |
 | 5,000 USD | 2.50 USD | 2.50 USD | 5.00 USD |
 
-Kimia does not take this from your account itself. The exchange collects it with the
-order and passes it on, as what exchanges call a builder fee. That is why your master
-wallet approves it once on each exchange. The approval allows up to 0.1 percent, so
-Kimia could raise the fee to that ceiling without asking again. If it does, it will be
-stated here first.
+Kimia does not take this from your account itself. Hyperliquid collects it with the
+order and passes it on, as what exchanges call a builder fee. That needs your Ethereum
+master to approve it once. The approval step is not in the app yet. When it arrives,
+you will be asked once before your next trade. The approval allows up to 0.1 percent,
+so Kimia could raise the fee to that ceiling without asking again. If it does, it will
+be stated here first.
 
 Part of Kimia's fee may go to whoever invited you. It never adds to what you pay. See
 [Referrals](/using-kimia/referrals).
 
 ## Exchange costs
 
-**Trading fees.** Every exchange charges a fee on every order. You pay it four times
-over the life of a position: buying and shorting on the way in, and closing both on
+**Hyperliquid trading fees.** A fee on every order. With Hyperliquid spot you pay it
+four times over a position's life: buying and shorting on the way in, closing both on
 the way out.
 
-**Jupiter swap fee.** When Jupiter is the spot venue, each swap carries a small fee,
-shown in the signing prompt.
+**Kimia vault swaps.** Buying and selling Kimia spot goes through Jupiter, and each
+swap pays the route's own cost. The vault only routes through exchanges it can call
+safely, which can cost a few hundredths of a percent more than the best route.
 
 **The spread.** Buying pushes the price up slightly and selling pushes it down. On
 liquid assets this is negligible. On thin ones it is not, and it grows with your
 order size. The ticket warns you when spot and perp are more than 2 percent apart.
 
-**Network fees.** Jupiter swaps are Solana transactions and cost a small amount of
-SOL each. Hyperliquid and Pacifica orders do not.
-
 **Dust.** The small remainder left behind when you close. See
 [Closing a position](/using-kimia/closing).
 
+## Network fees and rent
+
+| Cost | Paid by |
+|---|---|
+| Solana fees for Kimia vault buys and sells | Kimia |
+| One-time rent for a token's vault records, about 0.01 SOL | You, from your Solana master |
+| Vault tab steps: deposit, withdraw, revoke, authorize | You, a small SOL fee each |
+| Hyperliquid orders | No network fee |
+
 ## Getting money in and out
 
-**Bridging.** The in-app deposit and the Bridge tab use Across, which takes roughly
-1.26 USD per transfer whatever the size. See [Deposit and bridge](/getting-started/add-funds).
+| | Cost |
+|---|---|
+| Deposit or bridge to HyperCore | About 0.25 USD, plus 1 USD once on your first HyperCore deposit |
+| Withdraw or bridge from HyperCore | Circle's fee, taken on arrival, plus 0.50 USD held back for Hyperliquid's gas |
+| Withdraw from your Solana master | A small SOL network fee |
 
-**Withdrawing.** Whatever the exchange or network charges. Kimia adds nothing.
+Kimia adds nothing to any of these. See [Deposit and bridge](/getting-started/add-funds)
+and [Withdraw](/getting-started/withdraw).
 
 ## Why holding period matters more than rate
 
@@ -71,9 +83,9 @@ cost of getting in and out. If the answer is longer than you intend to hold, do 
 open the position.
 
 A rough example. A 1,000 USD position at 2x puts about 667 USD on each side. The
-round trip costs about 0.67 USD in Kimia fees, plus four exchange fees and the
-spread. At a Carry APR of 10 percent, the short earns about 0.18 USD a day. The
-Kimia fee alone takes about four days to earn back, before exchange fees.
+round trip costs about 0.67 USD in Kimia fees, plus exchange fees and the spread. At
+a Carry APR of 10 percent, the short earns about 0.18 USD a day. The Kimia fee alone
+takes about four days to earn back.
 
 <Note>
 Carry APR is the next hour's expected rate multiplied by 8,760 hours. It assumes that

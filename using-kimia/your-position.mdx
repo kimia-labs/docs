@@ -4,44 +4,47 @@ description: "What the numbers mean and what to watch."
 ---
 
 The positions list sits at the bottom of the **Trading** page. It reads directly from
-the exchanges, not from Kimia's own records. What you see is what the exchange
-believes, which is the number that matters.
+Hyperliquid and your vault, not from Kimia's own records. What you see is what the
+exchange believes, which is the number that matters.
 
 ## Two tabs
 
 | Tab | What it shows |
 |---|---|
 | **Positions** | Each open pair as a single row, with both sides together |
-| **Spot Holdings** | Assets you hold on their own, including leftovers from closed pairs |
+| **Spot Holdings** | Spot you hold on its own, on Hyperliquid or in your vault, including leftovers |
 
 ## Reading a row
 
 | Column | Meaning |
 |---|---|
-| Pair | The asset, and which venue holds each side |
-| Size | The size of the position |
+| Pair | The asset. The arrow beside it opens a share card |
+| Size | The short's size, with the entry price underneath |
 | Spot | The side you own outright |
 | Short | The perp that cancels the price exposure and collects funding |
 | Net | Your remaining exposure to price. Close to zero when the hedge is healthy |
-| Funding | The current funding rate on the short |
+| Funding | The current funding rate, and what it pays per day |
 | Earned | Funding collected so far |
-| uPnL | Unrealized profit and loss |
+| uPnL | Unrealized profit and loss for the whole pair |
 
 A countdown shows when the next funding payment lands.
 
 One side will usually show a gain while the other shows a loss. That is the hedge
-working. A large loss on the short paired with a matching gain on the spot side means
-the price rose and nothing has gone wrong.
+working.
 
 ## What to actually watch
 
 **The funding rate on your asset.** It changes every hour. If it has turned negative
 and stayed there, you are now paying to hold the position rather than being paid.
 
-**The margin on your short.** The short uses isolated margin: it is backed only by
-the margin posted for that position. If the price has risen a long way since you
-opened, that margin has shrunk. Spare balance elsewhere on the exchange does not help
-unless you add it to the position yourself, at the exchange.
+**The margin on your short.** The short uses isolated margin. If the price has risen
+a long way since you opened, that margin has shrunk. Spare balance elsewhere on
+Hyperliquid does not help unless you add it to the position yourself, at the
+exchange.
+
+**Your vault authorization**, for Kimia spot. It lasts 30 days and each new buy
+renews it. If it lapses, Kimia cannot sell the spot to close. Renew it on the Vault
+tab. See [The Kimia vault](/using-kimia/kimia-vault#the-authorization).
 
 **How long you have held it.** Opening and closing cost money. A position needs to
 run long enough for the funding collected to exceed what you paid to get in and out.
@@ -50,16 +53,17 @@ run long enough for the funding collected to exceed what you paid to get in and 
 
 The spot and short sizes drifting slightly apart. Small mismatches are normal.
 
-Unrealized profit and loss on either side on its own. Only the combined figure means
-anything.
+Unrealized profit and loss on either side on its own.
 
-Short-term swings in the funding rate. It moves constantly. One negative hour is
-noise.
+Short-term swings in the funding rate. One negative hour is noise.
 
-## What Kimia does not do for you
+## What Kimia does for you, and what it does not
 
-Kimia does not rebalance a position, top up its margin, protect it from liquidation,
-or close it when funding turns negative. Those calls are yours.
+**Kimia does:** sell your spot automatically if your short is liquidated, so you are
+not left holding it unhedged. See [Risks](/safety/risks#liquidation-on-the-short-side).
+
+**Kimia does not:** rebalance a position, top up its margin, prevent liquidation, or
+close it when funding turns negative. Those calls are yours.
 
 ## When to consider closing
 
@@ -71,5 +75,5 @@ There is no schedule and no maturity date. Reasonable moments to close:
 - A different asset is paying meaningfully more and you have held long enough to
   cover the cost of switching
 
-See [Closing a position](/using-kimia/closing). For a history of past pairs, see
+See [Closing a position](/using-kimia/closing). For history, see
 [Portfolio and leaderboard](/using-kimia/portfolio-and-leaderboard).

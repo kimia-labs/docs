@@ -3,33 +3,38 @@ title: "Closing a position"
 description: "Getting your money back out."
 ---
 
-Press **Close** on the position's row. Kimia unwinds both sides for you.
+Press **Close** on the position's row. Kimia unwinds both sides for you, and no
+signing prompt appears.
 
 ## What happens
 
-On Hyperliquid and Pacifica, the short closes first, then the asset is sold. No
-signing prompt appears.
+1. The short closes first.
+2. Only once it has closed is the spot sold.
+3. On Hyperliquid, margin freed from the short is swept back to your spot balance.
 
-That order is deliberate. If the second step fails, you are left holding the asset,
-which you can sell at any time. The reverse order could leave you holding only a
-short position, which is exposed to the price rising.
+That order is deliberate. If the second step fails, you are left holding spot, which
+you can sell at any time, never a lone short.
 
-**If Jupiter holds the spot side**, the order flips. Your Solana master signs the
-Jupiter sale first, then Kimia closes the short. If you reject the signing prompt,
-nothing closes.
+**With Kimia spot**, Kimia sells the tokens inside your vault and sends the USDC from
+the sale to your Solana master. USDC you had deposited but not spent stays in the
+vault. This needs your vault authorization for that token to be current. If it has
+expired, the close is refused before anything moves. **Reauthorize** it on the Vault
+tab and close again.
 
-**On Hyperliquid**, margin released from the closed short is swept back to your spot
-balance automatically. Hyperliquid's own balances screen shows spot and perp
-separately, so look at spot.
+## Closing everything
+
+On the **Portfolio** page, the pairs list has **Close all pairs**. Press it, then
+press **Confirm close N pairs** to go ahead. Pairs close one at a time, and one
+failing does not stop the rest.
 
 ## Selling the spot side on its own
 
 The **Spot Holdings** tab has a **Sell** button on each holding. It sells the spot
 side only.
 
-Be clear about what that means when the holding is part of an open pair: selling it
-removes the hedge. What remains is a short position, which loses money if the price
-rises. If you do this by accident, close the pair too.
+When the holding is part of an open pair, selling it removes the hedge. What remains
+is a short, which loses money if the price rises. If you do this by accident, close
+the pair too.
 
 There is no button to close only the short. Use **Close** on the pair.
 
@@ -38,35 +43,38 @@ There is no button to close only the short. Use **Close** on the pair.
 You will usually be left with a very small amount of the asset, worth a fraction of a
 dollar. It shows under **Spot Holdings**.
 
-The reason is that exchanges charge spot fees in the asset you receive, and they only
-accept order sizes in fixed increments. Buy a round number, pay the fee in the asset,
-and the amount you now hold is no longer a round number. Selling all of it is
-impossible, so a remainder stays behind.
-
-On Hyperliquid, dust under one dollar is converted automatically once a day, at 00:00
-UTC.
+Exchanges charge spot fees in the asset you receive, and only accept order sizes in
+fixed increments, so selling every last unit is impossible. On Hyperliquid, dust
+under one dollar is converted automatically once a day, at 00:00 UTC.
 
 Kimia refuses to open positions on assets where this remainder would be larger than
-one dollar. You will see a refusal mentioning residue or dust.
+one dollar.
 
 ## How long it takes
 
-Both sides close within seconds under normal conditions. The funds return to your
-exchange account or master wallet, not to Kimia.
+Both sides close within seconds under normal conditions. Closed pairs move to
+**Closed Pairs** on the Portfolio page once their fills are confirmed, which can take
+a few minutes.
 
 From there you can open a new position, or withdraw. See
-[Deposit and bridge](/getting-started/add-funds#withdrawing).
+[Withdraw](/getting-started/withdraw).
 
 ## If a close fails partway
 
-Check both tabs. Whatever is still open is still open, and you can close it again.
+Kimia tells you which:
 
-If the short closed but the asset is still showing under **Spot Holdings**, sell it
-with **Sell**. If the asset sold but the short is still open, close it promptly. You
-are unhedged until you do.
+| Message | What it means |
+|---|---|
+| Position closed | Both sides are done |
+| Partly closed, spot still held | The short closed but the spot did not sell. Sell it from **Spot Holdings** |
+| Couldn't close | Nothing moved. Try again |
+
+A "partly closed" message can also appear when both sides closed but a follow-up step,
+such as sweeping margin back to spot, did not. If **Spot Holdings** is empty, the pair
+is fully closed.
 
 Closing still works when market data is stale, and when opening has been paused.
 
 If closing keeps failing, see [Troubleshooting](/safety/troubleshooting). You can also
-close positions directly at the exchange, which does not depend on Kimia working.
-That needs your master wallet's key, from **Export key** in the account menu.
+close at Hyperliquid directly with your exported Ethereum master key, and withdraw
+vault funds directly with your exported Solana master key. Neither depends on Kimia.

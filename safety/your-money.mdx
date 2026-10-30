@@ -1,72 +1,92 @@
 ---
 title: "Your money"
-description: "Who holds what, and how to take the permissions back."
+description: "Who holds what, what Kimia can do, and how to take it back."
 ---
 
-## Kimia does not hold your funds
+Kimia's powers over your money depend on where it sits. This page sets them out
+plainly.
 
-Your money sits in your own master wallets, and in your own accounts at Hyperliquid
-and Pacifica that belong to those wallets. Kimia has no account holding customer
-deposits and cannot move your funds to itself or to anyone else.
+## At a glance
 
-You can withdraw at any time, through the exchange or on-chain, without Kimia's
-involvement or permission.
+| Where | Owned by | Kimia can | Kimia cannot |
+|---|---|---|---|
+| Your sign-in wallet | You | Nothing | Anything |
+| Your Hyperliquid account | Your Ethereum master | Trade through the agent | Withdraw or transfer |
+| Your Solana master | You | Withdraw to your sign-in wallet, when you ask in the app | Send anywhere else |
+| Your Kimia vault | Your Solana master, through the vault program | Buy within your authorization, sell, return funds to your Solana master | Send funds anywhere else |
 
 ## The wallets
 
-**The wallet you sign in with** is yours, from before Kimia. It proves who you are
-and pays for in-app deposits. It never holds your exchange accounts.
+**The wallet you sign in with** is yours, from before Kimia. It sends deposits and
+receives withdrawals. Kimia never holds its keys.
 
 **Your master wallets**, one on Ethereum and one on Solana, are created for you when
-you sign in, by Kimia's sign-in provider, Privy. They hold your exchange accounts and
-your money. They are yours: you can take their keys out at any time with
-**Export key** in the account menu.
+you sign in, by Kimia's sign-in provider, Privy. They hold your money. They are yours:
+take their keys out at any time with **Export key** in the account menu.
+
+Because Privy holds these wallets until you export them, Kimia's app can ask them to
+sign without a prompt for certain steps you start yourself, such as a withdrawal from
+HyperCore.
 
 **The agent** is an address Kimia creates and runs. Once bound, it may place orders
-on your Hyperliquid and Pacifica accounts. It holds no money of its own.
+on your Hyperliquid account. It holds no money.
 
-## What your master wallets sign
+**The manager key** is a single key Kimia controls that acts inside the Kimia vault,
+for all users.
 
-| Signature | How often | What it allows |
-|---|---|---|
-| Bind the agent | Once per exchange | The agent may trade on that exchange account |
-| Approve Kimia's fee | Once per exchange | The exchange may charge Kimia's fee, up to 0.1 percent, on orders Kimia places |
-| Jupiter swap | Every Jupiter buy and sell | That one swap, shown in the prompt |
+## Hyperliquid: trading, not withdrawing
 
-Deposits are signed by the wallet you sign in with, not the master wallets.
-
-## What the agent can and cannot do
-
-| Can | Cannot |
+| The agent can | The agent cannot |
 |---|---|
-| Open positions | Withdraw funds |
-| Close positions | Send money to another address |
-| Cancel orders | Approve further permissions |
-| Change leverage and margin mode | Sign Jupiter swaps |
-| Move USDC between your own Hyperliquid spot and perp balances | Access your master wallets |
+| Open and close positions | Withdraw funds |
+| Cancel orders | Send money to another address |
+| Change leverage and margin mode | Approve further permissions |
+| Move USDC between your own spot and perp balances | Access your master wallets |
 
-The worst case if the agent were misused is unwanted trading on your account, which
-could lose money. It is not the same as your funds being taken. The exchanges
-enforce the line between trading and withdrawing, not Kimia.
+The worst case if the agent were misused is unwanted trading, which could lose money.
+It cannot take your funds. Hyperliquid enforces the line, not Kimia.
 
-## Jupiter holdings
+## The Kimia vault: trading, and returning to you
 
-When Jupiter is the spot venue, the asset you buy sits in your Solana master wallet
-as an ordinary token, not at an exchange. The agent cannot touch it. Every sale needs
-your signature.
+Kimia spot sits in a program on Solana that your Solana master owns. Through its
+manager key, Kimia can:
+
+- **Buy** a token, only with your signature, within the USDC you authorized, for 30 days
+- **Sell** any token you hold, without your signature, so positions can always close
+- **Withdraw** your USDC or tokens, but only to your own Solana master
+
+The program refuses to send vault funds anywhere except their owner. It does not set a
+minimum price on sales. So the worst case if the manager key were misused is your
+vault tokens being sold at a bad price, with the proceeds still coming back to you.
+See [Risks](/safety/risks#kimia-vault-risk) and [The Kimia vault](/using-kimia/kimia-vault).
+
+Kimia can also upgrade the vault program, which in principle could change these
+rules. Handing that power to a multisig with a time delay is planned, not done.
+
+## What you sign
+
+| Signature | Signed by | How often |
+|---|---|---|
+| Bind the Hyperliquid agent | Ethereum master | Once |
+| Approve Kimia's fee | Ethereum master | Once, when the step arrives in the app |
+| Kimia vault buy and authorization | Solana master | Each buy. Two on a token's first |
+| Vault tab steps | Solana master | Each |
+| Deposit, bridge to HyperCore | Your sign-in wallet | Each |
+| Withdraw from Solana master | Your sign-in wallet | Each |
+| Withdraw or bridge from HyperCore | Ethereum master, without a prompt | Each, when you press Withdraw |
 
 ## Getting your keys
 
 Your master wallets live with Privy until you export them. To use them anywhere
-outside Kimia, including at an exchange's own website:
+outside Kimia:
 
 <Steps>
   <Step title="Open the account menu">
-    Top right. Go to the **Wallets** tab.
+    Top right. On a phone, Settings, then My Profile.
   </Step>
   <Step title="Press Export key on the wallet you need">
-    **Ethereum master** for Hyperliquid, **Solana master** for Pacifica and Jupiter.
-    Privy shows the key in its own secure window.
+    **Ethereum master** for Hyperliquid, **Solana master** for your vault. Privy shows
+    the key in its own secure window.
   </Step>
   <Step title="Import it into a wallet you control">
     MetaMask for the Ethereum master, Phantom or Solflare for the Solana master. Keep
@@ -77,19 +97,19 @@ outside Kimia, including at an exchange's own website:
 Do this before you need it. It is your route to your money if Kimia is ever
 unavailable.
 
-## Revoking access
+## Taking permissions back
 
-You can revoke the agent at any time at the exchange, where approved agents are
-listed. Connect with your exported master wallet to do it. Revoking takes effect
-immediately and does not need Kimia to cooperate.
+**Hyperliquid agent.** Revoke it at Hyperliquid, where approved agents are listed,
+connected with your exported Ethereum master. Takes effect immediately. Open
+positions stay open, and you manage them at Hyperliquid.
 
-After revoking:
+**Vault authorizations.** On the **Vault** tab, press **Revoke** on a token. Kimia
+stops trading it at once, including selling it, so a pair holding that token can no
+longer be closed by Kimia until you reauthorize or withdraw the token yourself.
 
-- Open positions stay open. Revoking does not close anything
-- Kimia can no longer place or close orders for you on that exchange
-- You manage or close remaining positions at the exchange directly
-
-Revoke if you stop using Kimia, or at any point you are uncomfortable.
+**Vault funds.** **Withdraw** and **Withdraw as** a token on the Vault tab return
+funds to your Solana master. The vault program lets you do this even if Kimia pauses
+the vault.
 
 ## If something looks wrong
 
@@ -98,22 +118,15 @@ and asking afterwards.
 
 <Steps>
   <Step title="Export your master wallet keys">
-    See above. You need them for the next steps.
+    See above.
   </Step>
-  <Step title="Revoke the agent at the exchange">
-    This stops any further orders immediately.
+  <Step title="Revoke the Hyperliquid agent and your vault authorizations">
+    This stops further trading immediately.
   </Step>
-  <Step title="Close open positions at the exchange">
-    You do not need Kimia to do this.
+  <Step title="Close positions at Hyperliquid and withdraw vault tokens">
+    You do not need Kimia for either.
   </Step>
-  <Step title="Withdraw if you want to">
+  <Step title="Withdraw">
     Your master wallets keep full control throughout.
   </Step>
 </Steps>
-
-## Two exchanges, two separate accounts
-
-Binding Hyperliquid does not bind Pacifica, and revoking one does not revoke the
-other. Each is separate, with separate funds and a separate permission.
-
-If you decide to stop using Kimia entirely, revoke on both.

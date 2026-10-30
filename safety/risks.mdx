@@ -24,22 +24,24 @@ does not close for you.
 
 ## Liquidation on the short side
 
-The short position is leveraged, which means it is backed by a margin buffer rather
-than the full amount. Kimia uses isolated margin, so that buffer is only the margin
-posted for that position. The rest of your balance does not back it.
+The short is leveraged, which means it is backed by a margin buffer rather than the
+full amount. Kimia uses isolated margin, so that buffer is only the margin posted for
+that position.
 
-If the price rises far enough, that buffer runs out and the exchange closes the
-position for you. This is liquidation. You lose the buffer, and worse, your hedge is
-gone while you still hold the asset. You are now fully exposed to the price.
+If the price rises far enough, that buffer runs out and Hyperliquid closes the short.
+This is liquidation. You lose the margin.
 
-Higher leverage makes this happen after a smaller move.
+Kimia then sells your spot automatically, usually within a couple of minutes, so you
+are not left holding it unhedged. That sale accepts up to 5 percent slippage, and the
+price may have moved in the meantime. For Kimia spot whose authorization has lapsed,
+Kimia returns the tokens to your Solana master unsold instead.
+
+Higher leverage makes liquidation happen after a smaller move.
 
 **What you can do.** Use low leverage. Watch the margin after large price moves, and
-add to it at the exchange if needed. Kimia does not top it up for you.
+add to it at Hyperliquid if needed. Kimia does not top it up for you.
 
 ## Forced closure even when you are safe
-
-This one surprises people, and it is worth understanding.
 
 When an exchange cannot find a buyer for a liquidated position, it closes somebody
 else's profitable position instead to balance the books. This is called auto
@@ -47,41 +49,55 @@ deleveraging.
 
 Exchanges pick which positions to close by ranking them, and the ranking favours
 positions that are profitable and leveraged. A profitable leveraged short is exactly
-what the Kimia strategy holds.
+what this strategy holds.
 
-Being hedged does not protect you. Only the perp side gets closed, leaving you holding
-the asset with no hedge, without having done anything wrong and without warning.
+Only the short gets closed, leaving you holding spot with no hedge, without warning.
+Kimia does not treat this as a liquidation and does not sell the spot for you.
 
-**What you can do.** Very little, directly. Lower leverage reduces your ranking. It is
-a real risk of the strategy and it is not modelled in any published return figure,
-including ours.
+**What you can do.** Very little, directly. Lower leverage reduces your ranking. Check
+your positions after sharp moves. It is a real risk of the strategy and it is not
+modelled in any published return figure, including ours.
 
 ## The hedge is approximate
 
-The two sides are sized from prices captured moments apart, and each exchange rounds
-order sizes differently. When the two sides live on different venues, their prices
-can drift apart independently. That drift tends to be largest exactly when funding is
+Kimia sizes the short to the spot that actually arrived, but each exchange rounds
+order sizes differently, and when spot is in the Kimia vault, its price on Solana can
+drift apart from Hyperliquid's. That drift tends to be largest exactly when funding is
 most attractive.
 
-The result is that your exposure is close to zero, not zero. Over a long hold, that
-gap accumulates.
+Your exposure is close to zero, not zero.
 
-## Exchange and venue risk
+## Kimia vault risk
 
-Your funds sit at Hyperliquid, at Pacifica, or in your Solana master wallet as tokens
-bought through Jupiter. If an exchange is hacked, halts withdrawals, or fails, your
-deposit there is at risk regardless of anything Kimia does.
+Kimia spot sits in a vault program on Solana. That adds risks a plain exchange account
+does not have:
 
-Pacifica is a newer venue than Hyperliquid. Size accordingly.
+- **Smart contract risk.** The program is unaudited. A bug could lose funds
+- **Manager key risk.** Kimia's manager key can sell vault tokens without your
+  signature, and nothing on-chain sets a minimum price. If that key were compromised,
+  tokens could be sold at a bad price. Proceeds could only go back to their owners
+- **Upgrade risk.** Kimia can upgrade the program. Moving that power to a multisig
+  with a time delay is planned, not done
+- **Authorization expiry.** Authorizations last 30 days. If yours lapses, Kimia cannot
+  sell your spot to close a pair until you reauthorize
+- **Shared accounts.** Tokens of the same kind sit in one account owned by the program,
+  with each owner's share recorded separately. If USDC's issuer froze that account,
+  every user's USDC in it would be stuck
 
-Deposits into Hyperliquid pass through Across, a cross-chain bridge. Bridges carry
-their own risk while funds are in transit.
+## Exchange and bridge risk
+
+Your funds sit at Hyperliquid, in your Solana master, or in the Kimia vault. If
+Hyperliquid is hacked, halts withdrawals, or fails, your deposit there is at risk
+regardless of anything Kimia does.
+
+Deposits and withdrawals between Solana and Hyperliquid pass through Circle's CCTP
+bridge. If a transfer does not arrive, it needs Circle or Kimia support to trace.
 
 ## Wallet risk
 
-Your master wallets are created and held by Privy until you export their keys. If you
-lose access to your sign-in wallet, you may lose access to them too. Export your keys
-and keep them safe. See [Your money](/safety/your-money#getting-your-keys).
+Your master wallets are held by Privy until you export their keys. If you lose access
+to your sign-in wallet, you may lose access to them too. Export your keys and keep
+them safe. See [Your money](/safety/your-money#getting-your-keys).
 
 Once exported, anyone who obtains those keys controls your funds.
 
@@ -91,9 +107,6 @@ Kimia is unaudited software in private beta. It places real orders with real mon
 
 Its safety checks refuse unsafe orders rather than proceeding, which is the right
 default, but no amount of checking makes early software equivalent to mature software.
-
-The agent's permission is limited to trading and cannot withdraw funds, which caps
-the worst case. It does not cap the risk of a badly placed or badly timed order.
 
 ## Fees exceeding yield
 
@@ -107,13 +120,14 @@ paid you, no matter how good the rate was.
 
 Worth stating clearly, because these worry people unnecessarily.
 
-Kimia cannot withdraw your funds. The agent's limits are enforced by the exchange.
+Kimia cannot send your funds to anyone but you. Hyperliquid enforces that for your
+exchange account, and the vault program enforces it for your vault.
 
 A large unrealized loss on one side of your position, when matched by a gain on the
 other, is the hedge working correctly.
 
-Kimia being offline does not affect an open position. It stays open at the exchange,
-and you can close it there directly using your exported master wallet key.
+Kimia being offline does not affect an open position. It stays open, and you can close
+it at Hyperliquid and withdraw from your vault using your exported keys.
 
 <Warning>
 Start small. Hold one position through a full cycle, including a period of negative

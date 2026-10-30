@@ -29,6 +29,8 @@ provider, not by your name.
 | Technical logs, including IP address, request times, and error details | To operate the service, diagnose faults, and prevent abuse |
 | The invite code you entered, who referred you, and who you referred | To run the invite system and the referral programme |
 | Trading volume, profit and loss, and referral earnings derived from your orders | To apply referral thresholds and tiers, and to rank the leaderboard |
+| Records of closed pairs, including asset, sizes, prices, and funding | To show your history on the Portfolio page |
+| Your Kimia vault records, held on the Solana blockchain | To trade spot for you and show your vault |
 
 **If you join the waitlist on our website**
 
@@ -70,6 +72,10 @@ A wallet address is pseudonymous, not anonymous. Anyone who links an address to 
 identity can see its history. Consider this before funding an address you have used
 elsewhere.
 
+**Share cards you create are public.** Anyone with the link can see the pair, its
+route, prices, returns and, unless you hide amounts, dollar figures, along with your
+referral code.
+
 **The leaderboard is public.** It shows a shortened form of your wallet address with
 your profit and loss, return, volume, and account value for each period.
 
@@ -81,9 +87,8 @@ Kimia relies on services that receive data directly from you or from us.
 |---|---|---|
 | Privy | Authentication and wallet infrastructure | Your login method, wallet addresses, session data |
 | Hyperliquid | Exchange | Your orders, positions, and account activity |
-| Pacifica | Exchange | Your orders, positions, and account activity |
-| Jupiter | Spot swaps on Solana | Swaps you sign, and your Solana master wallet address |
-| Across | Bridging USDC from Solana to Hyperliquid | Deposit amounts and the addresses involved |
+| Jupiter | Routing Kimia vault swaps on Solana | Swap amounts and the vault accounts involved |
+| Circle | Bridging USDC between Solana and Hyperliquid (CCTP) | Transfer amounts, transaction identifiers, and the addresses involved |
 | X | Waitlist sign-in | Your X login, if you join the waitlist |
 | Blockchain RPC providers | Reading and submitting blockchain transactions | Wallet addresses and transactions |
 | Hosting and infrastructure providers | Running the service | Technical logs and traffic data |
@@ -98,9 +103,11 @@ We do not set our own tracking or advertising cookies.
 Our authentication provider stores session data in your browser, including a session
 token, so that you stay signed in.
 
-The app stores two small entries in your browser's local storage: the invite code you
-entered, and a record that you accepted the risk notice. They exist so you are not
-asked again on every visit.
+The app stores a few small entries in your browser's local storage: the invite code you
+entered, the accounts admitted on this device, any referral code from a link you
+opened, a record that you accepted the risk notice, and whether you chose to hide balances.
+On phones, the app also remembers for the current session that it has shown the key
+backup prompt. They exist so you are not asked again on every visit.
 
 The waitlist sets its own signed session cookie while you are signed in with X.
 

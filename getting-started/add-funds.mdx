@@ -1,109 +1,97 @@
 ---
 title: "Deposit and bridge"
-description: "Getting USDC onto each exchange."
+description: "Getting USDC to Hyperliquid and your Kimia vault."
 ---
 
-Your money goes into your own master wallets and your own exchange accounts. Kimia
-never holds it.
+Your money goes into your own master wallets. Kimia never takes possession of it.
 
-Open the account menu, top right. It has three tabs: **Wallets**, **Deposit** and
-**Bridge**.
+Moving money happens on the **Wallet** page, in the top navigation. It has four tabs:
+**Deposit**, **Withdraw**, **Bridge** and **Vault**.
+
+## Where money needs to be
+
+| For | Money needs to be | Arrives through |
+|---|---|---|
+| A Hyperliquid short, or Hyperliquid spot | USDC on HyperCore, in your Ethereum master's account | Deposit or Bridge |
+| Kimia spot | USDC in your Solana master or your vault | Deposit |
 
 ## The Deposit tab
 
-This is the easiest route. Enter one amount of USDC and Kimia splits it evenly:
+Fund both places in one transaction, from the Solana wallet you signed in with.
 
-| Half | Where it goes |
-|---|---|
-| Solana | Your Solana master, as USDC on Solana |
-| HyperCore | Bridged by Across to USDC on HyperCore, credited to your Ethereum master |
+<Steps>
+  <Step title="Enter two amounts">
+    **To your Solana wallet** goes to your Solana master, for Kimia spot.
+    **To HyperCore** is bridged to your Hyperliquid account. Either can be zero. Each
+    has a **Max** that fills whatever the other leaves.
+  </Step>
+  <Step title="Check what arrives">
+    The HyperCore figure is what the bridge quote says will actually land, after its
+    fee.
+  </Step>
+  <Step title="Press Deposit and approve once">
+    One wallet prompt covers both. Both land, or neither does. The app shows each leg
+    as it progresses, with a link to the transaction.
+  </Step>
+</Steps>
 
-The money comes from the wallet you signed in with, so that wallet needs USDC on
-Solana and about 0.01 SOL. Your wallet asks you to sign twice, once for each half.
-The bridged half usually arrives within seconds.
+The bridge to HyperCore is Circle's CCTP, the official USDC bridge. It usually lands
+in under a minute.
 
-<Note>
-The HyperCore figure shown before you confirm is what Across says will actually
-arrive, after its fee. It is slightly less than half of what you send.
-</Note>
-
-## The Bridge tab
-
-Moves USDC on Solana to your Hyperliquid account without the split. Use it to top up
-the Hyperliquid side on its own. It asks for one signature.
-
-## Depositing directly
-
-On the **Wallets** tab, each master wallet has a **Deposit** button that shows its
-address and a QR code.
-
-- **Ethereum master.** Send only USDC on HyperCore.
-- **Solana master.** Send only USDC on Solana.
-
-Sending any other token or network to these addresses risks losing it.
-
-## Bridge fees and limits
+## Fees and limits
 
 | | |
 |---|---|
-| Across fee | Roughly 1.26 USD flat, whatever the size. The quote is authoritative |
-| Hard minimum | Each half must be worth more than the fee, so about 2.52 USD in total |
-| Suggested minimum | 20 USD. Below that the app warns you, since each side of a position needs at least 10 USD |
-| SOL needed | About 0.01 SOL in your sign-in wallet |
+| Bridge fee | About 0.25 USD, near-flat whatever the size. The quote is authoritative |
+| First deposit to HyperCore | 1 USD extra, a one-off account fee charged by Hyperliquid |
+| Minimum to HyperCore | More than the fee, plus the 1 USD on a first deposit |
+| Suggested minimum | 20 USD. Below that the app warns you |
+| SOL needed | About 0.007 SOL in your sign-in wallet when bridging |
+| Maximum | 1,000,000 USD per deposit |
+
+## The Bridge tab
+
+Moves USDC between Solana and HyperCore in either direction. Use the arrow to switch.
+
+- **Solana to HyperCore** sends from your sign-in wallet to your Hyperliquid account.
+  Same fees and SOL rule as Deposit. The quote shows rate, fee, slippage and the
+  minimum you will receive
+- **HyperCore to Solana** sends from your Hyperliquid account to your sign-in wallet.
+  Minimum 2 USD. Circle takes its fee on arrival. This is the same route as
+  [Withdraw](/getting-started/withdraw)
+
+## Sending directly
+
+The account menu, top right, shows each master wallet with a **Deposit** button that
+reveals its address and a QR code.
+
+- **Ethereum master.** Send only USDC on HyperCore.
+- **Solana master.** USDC on Solana. It also accepts SOL, which it needs for Kimia
+  vault fees, even though the card only mentions USDC.
+
+Sending any other token or network risks losing it.
 
 ## Where the money lands
 
 **Hyperliquid.** Bridged USDC arrives in your HyperCore spot balance. When you open a
-position, Kimia moves whatever the short side needs from spot to perp for you.
+position, Kimia moves whatever the short needs from spot to perp for you.
 
-**Solana.** USDC lands in your Solana master. That balance buys Jupiter spot directly.
+**Solana master.** USDC waits there. Your first Kimia buy pulls what it needs into
+your vault. You can also move it in yourself from the Vault tab.
 
-**Pacifica.** A Pacifica short needs USDC deposited into Pacifica itself, not just
-sitting in your Solana master. The account menu shows this as **Pacifica equity** and
-**Pacifica available**. Until the first deposit it reads "No Pacifica account yet".
-
-<Warning>
-Moving USDC from your Solana master into Pacifica is not yet part of the Kimia app.
-For now, use **Export key** on the Solana master card, import that key into a Solana
-wallet, and deposit at Pacifica directly. Pacifica's minimum deposit is 10 USDC, plus
-a little SOL for the transaction.
-
-Binding the agent is not enough on its own. Without a Pacifica deposit, the short side
-of your position will be refused and the position will not open.
-</Warning>
-
-## Which exchange to fund
-
-If you are starting out, a position with Hyperliquid on both sides is the simplest:
-one deposit via the Bridge tab, no extra signatures per trade, and a single account
-to watch.
-
-Cross-exchange pairs, such as Jupiter spot with a Hyperliquid short, sometimes pay
-better. They also mean keeping enough balance on both sides, since Kimia cannot move
-money between exchanges to cover a shortfall.
+Use **Refresh balances** in the account menu if a balance looks out of date.
 
 ## How much to leave spare
 
 Do not put every last dollar into a position.
 
-The short side is backed by a margin buffer held against that position alone,
-called isolated margin. If the price rises sharply, that buffer absorbs the move. If
-it runs out, the exchange closes the position at a loss, which is called
-liquidation, and your hedge disappears when you most need it.
+The short is backed by margin held against that position alone, called isolated
+margin. If the price rises sharply, that margin absorbs the move. If it runs out, the
+exchange closes the short, which is called liquidation. Kimia then sells your spot
+automatically, so you are not left holding it unhedged, but you lose the margin. See
+[Risks](/safety/risks).
 
-Spare balance on the exchange does not protect the short automatically. It gives you
-funds to add to the position's margin yourself if needed. See [Risks](/safety/risks).
-
-## Withdrawing
-
-Kimia has no withdraw button. You withdraw through the exchange, or from the master
-wallet on-chain, and Kimia cannot block it.
-
-Because the master wallets were created for you by Privy, you first need their keys.
-Use **Export key** on the relevant card in the account menu, import the key into a
-wallet you control, then withdraw as normal.
-
-Close any open position first. Funds backing a live position are not available to
-withdraw.
+Spare balance on Hyperliquid does not protect the short by itself. It gives you funds
+to add to the position's margin at the exchange if you need to.
 
 Next: [Open your first position](/getting-started/first-position).

@@ -4,12 +4,17 @@ description: "Terms you will meet, in plain language."
 ---
 
 **Agent**
-An address Kimia creates and you bind, allowed to place orders on your Hyperliquid or
-Pacifica account but not to withdraw funds.
+An address Kimia creates and you bind, allowed to place orders on your Hyperliquid
+account but not to withdraw funds.
 
 **APR**
 Annual percentage rate. A rate multiplied out to a year without compounding. Kimia's
 Carry APR is the next hour's expected funding rate times 8,760.
+
+**Authorization**
+What you sign to let Kimia trade a token inside your vault: buy up to the USDC you
+authorized, sell without limit, for 30 days. Revocable at any time. See
+[The Kimia vault](/using-kimia/kimia-vault#the-authorization).
 
 **Auto deleveraging**
 When an exchange closes somebody's profitable position to cover a loss it cannot
@@ -21,17 +26,21 @@ The gap between the price of an asset and the price of its perpetual future. Whe
 moves, a hedge that was exact becomes slightly inexact.
 
 **Bridge**
-A service that moves tokens from one blockchain to another. Kimia uses Across to move
-USDC from Solana to Hyperliquid.
+A service that moves tokens from one blockchain to another. Kimia uses Circle's CCTP
+to move USDC between Solana and Hyperliquid, in either direction.
 
 **Builder fee**
 A fee an exchange collects on behalf of the app that placed the order. It is how
-Kimia's fee is charged. See [What it costs](/using-kimia/what-it-costs).
+Kimia's fee is charged on Hyperliquid. See [What it costs](/using-kimia/what-it-costs).
 
 **Carry**
 Earning from holding a position over time, rather than from the price changing. Here,
 the funding collected by the short. Cash and carry means buying the asset and shorting
 it to collect that funding.
+
+**CCTP**
+Circle's Cross-Chain Transfer Protocol, the official way to move USDC between
+blockchains. Kimia's deposits, bridge and withdrawals use it.
 
 **Delta**
 Exposure to price. A position with high delta gains and loses as the price moves.
@@ -51,6 +60,9 @@ tethered to the real one. The source of your yield.
 **Hedge**
 A position taken to cancel out the risk of another one.
 
+**HyperCore**
+Hyperliquid's own blockchain, where your Hyperliquid account and its USDC live.
+
 **Invite code**
 A code, `KIM` followed by eight letters or digits, needed to join the private beta.
 Whoever's code you use becomes your referrer.
@@ -60,8 +72,15 @@ Margin that backs one position only. If it runs out, only that position is
 liquidated, and the rest of your balance does not come to its rescue.
 
 **Jupiter**
-A Solana exchange that swaps tokens directly from your wallet. Kimia uses it for the
-spot side only.
+A Solana exchange aggregator. The Kimia vault routes its swaps through it.
+
+**Kimia (spot venue)**
+Buying spot inside your own Kimia vault on Solana, rather than on Hyperliquid.
+
+**Kimia vault**
+A program on Solana, owned by your Solana master, that holds Kimia spot and the USDC
+for it. Kimia can trade inside it and return funds to you, nothing else. See
+[The Kimia vault](/using-kimia/kimia-vault).
 
 **Leverage**
 Controlling a larger position than the money you put up. Increases both the share of
@@ -74,14 +93,18 @@ lose the buffer.
 **Long**
 A position that gains when the price rises.
 
+**Manager key**
+The single key Kimia uses to act inside the Kimia vault for all users. It can buy
+within your authorization, sell, and withdraw to owners only.
+
 **Margin**
 Money set aside to back a leveraged position. The buffer that absorbs adverse price
 moves.
 
 **Master wallet**
 One of two wallets, Ethereum and Solana, created for you by Privy when you sign in.
-Holds your exchange accounts and your money. Signs the agent binding and fee approval
-once per exchange, and every Jupiter swap.
+The Ethereum master owns your Hyperliquid account; the Solana master owns your Kimia
+vault. Exportable at any time.
 
 **Notional**
 The full value of a position, as opposed to the money you posted to open it. A 500
@@ -109,6 +132,6 @@ own order moving the market.
 Buying the asset itself, outright, with no leverage and no expiry.
 
 **Stale data**
-Market data old enough that Kimia will not price an order against it. A venue is
-treated as stale after about 90 seconds without an update. Causes a refusal rather
-than a risky order. Closing is not affected.
+Data old enough that Kimia will not rely on it, about 90 seconds for rates. Rates
+show as a dash, and orders priced on stale data are refused. Closing is not
+affected.

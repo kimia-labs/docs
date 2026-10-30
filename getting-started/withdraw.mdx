@@ -1,0 +1,59 @@
+---
+title: "Withdraw"
+description: "Getting USDC back to your own wallet."
+---
+
+Withdrawals go to one place only: the Solana wallet you signed in with. There is no
+option to send to another address.
+
+## The Withdraw tab
+
+On the **Wallet** page, open **Withdraw**. Enter how much to take from each source:
+
+| Box | Takes from |
+|---|---|
+| **From your Solana master** | USDC in your Solana master |
+| **From HyperCore** | USDC in your Hyperliquid account. While a position is open this reads **From HyperCore spot** |
+
+Press **Withdraw**. The app shows each leg as it goes.
+
+## From your Solana master
+
+A direct transfer on Solana. Your sign-in wallet asks you to approve once and pays the
+small network fee. It lands in seconds.
+
+## From HyperCore
+
+Kimia signs the withdrawal from your Ethereum master for you, without a prompt, and
+Circle bridges it to Solana. It usually lands within a few minutes.
+
+| | |
+|---|---|
+| Minimum | 2 USD. Circle's fee comes out of it |
+| Held back | 0.50 USD stays behind for Hyperliquid's withdrawal gas, which it charges in USDC |
+| While a position is open | Only spot balance can be withdrawn. Perp margin stays put |
+
+If it takes longer than expected, the app says so. Check again shortly before
+retrying.
+
+## Money in the Kimia vault
+
+The Withdraw tab does not touch the vault. On the **Vault** tab:
+
+- **Withdraw** moves deposited USDC back to your Solana master
+- **Withdraw as USDC** sells a token and returns the USDC
+- **Withdraw as** a token takes the token out unsold
+
+Then withdraw from your Solana master as above. See
+[The Kimia vault](/using-kimia/kimia-vault).
+
+## Before you withdraw everything
+
+Close open positions first. Funds backing a live position are not available.
+
+## Without Kimia
+
+If Kimia is unavailable, export your master wallet keys from the account menu with
+**Export key**, import them into a wallet you control, and withdraw directly from
+Hyperliquid or on-chain. The vault program also lets your Solana master withdraw
+without Kimia. See [Your money](/safety/your-money#getting-your-keys).

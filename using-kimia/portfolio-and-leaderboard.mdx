@@ -1,60 +1,77 @@
 ---
 title: "Portfolio and leaderboard"
-description: "Your history, and how you compare."
+description: "Your history, sharing a pair, and how you compare."
 ---
 
-Both pages are in the top navigation, next to **Trading**.
+Both pages are in the top navigation, next to **Trading** and **Wallet**.
 
 ## Portfolio
 
-The **Portfolio** page summarises your account over time. Switch between **All**,
-**Orders** and **PnL report** at the top.
+The **Portfolio** page summarises your account. Switch between **All**, **Orders**
+and **PnL report** at the top.
 
 | Card | What it shows |
 |---|---|
 | PnL | Profit and loss over time |
-| Analytics | Wallet balance, average buy amount, average hold time, biggest win and biggest loss |
+| Analytics | Wallet balance, average buy amount, average entry and exit market cap, average hold time, biggest win and loss |
 | Distribution | How your results are spread across outcomes |
 
 ### Your pairs
 
-Below the cards, **Open Pairs** and **Closed Pairs** list your positions pair by pair,
-with entry price, funding, earned and unrealized profit and loss. Filters narrow the
-list to pairs that are earning or paying funding, in profit or at a loss, or above
-1,000 or 10,000 USD.
+Below the cards, **Open Pairs** and **Closed Pairs** list your positions pair by pair.
+
+| Column | Meaning |
+|---|---|
+| Pair, Route | The asset, and which venue holds the spot and the short |
+| Size, Spot, Short, Net | As on the [positions list](/using-kimia/your-position) |
+| Funding, Earned, uPnL | Rate, funding collected, unrealized result |
+| Status | **Close pair** for open pairs, **Closed** for closed ones |
+
+**Filter** narrows the list by name, spot venue, short size (1,000 or 10,000 USD and
+up), funding (earning or paying), earned and uPnL (profit or loss), and pairs whose
+hedge has drifted. **Close all pairs** closes every open pair after a second
+confirmation. See [Closing a position](/using-kimia/closing#closing-everything).
 
 <Note>
-The pairs list on this page is still being wired up and may show as empty even when
-you hold positions. Use the **Positions** list on the **Trading** page, which reads
-live from the exchanges.
+Closed pairs are recorded from 28 October 2026. Pairs closed before then do not
+appear. A newly closed pair can take a few minutes to show while its fills are
+confirmed.
 </Note>
 
 ### Sharing a pair
 
-**Share this pair** creates a card for that pair, which you can copy as a link or
-post to X. Check what it shows before posting.
+The arrow next to a pair's name, here or on the positions list, opens **Share this
+pair**. The card shows the pair and its route, the current APR for an open pair or the
+funding return for a closed one, entry price, and mark price and funding earned or
+close price. It carries your referral code.
+
+Copy the link or post it to X. Anyone opening the link sees the card and a
+**Start trading** button that pre-fills your invite code. Links are signed, so an
+edited link shows nothing. On a phone, **Hide amounts** removes dollar figures from the
+card and the link.
 
 ## Leaderboard
 
 The **Leaderboard** page ranks Kimia users. Choose a period: **1 Day**, **1 Week**,
-**1 Month** or **All Time**.
+**1 Month** or **All Time**, the default.
 
 | Column | Meaning |
 |---|---|
 | Place | Rank for the period |
-| User | A shortened wallet address |
-| PnL | Profit and loss over the period |
-| ROI | Return on the money committed |
-| Volume | Total traded over the period |
-| Account Value | Current account size |
+| User | The start of the wallet address |
+| PnL | Funding settled in the period |
+| ROI | That funding, divided by current account value |
+| Volume | Total value of filled orders in the period |
+
+1 Month means the last 30 days. The top 100 are shown.
 
 Your own standing appears in the overview panel alongside your referral details:
 **Referrals**, **Referral Tier** and **Referral Earnings**. **Total Points** is shown
-but points are not active yet.
+but points are not active.
 
 <Note>
-The leaderboard is public. Anyone can see a shortened form of your wallet address and
-your figures for each period. Nothing else about you is shown.
+The leaderboard is public. Anyone can see the start of your wallet address and your
+figures for each period.
 </Note>
 
 For referrals, see [Referrals](/using-kimia/referrals).

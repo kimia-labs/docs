@@ -1,6 +1,6 @@
 ---
 title: "Open your first position"
-description: "Choosing an asset, venues, a size and a leverage."
+description: "Choosing an asset, a spot venue, a size and a leverage."
 ---
 
 Positions are opened from the trade ticket on the **Trading** page. The ticket has
@@ -9,31 +9,31 @@ it as a perp. **Dual perp** is not available yet.
 
 <Steps>
   <Step title="Pick an asset">
-    The asset picker lists every asset Kimia can pair, with its price, the spread
-    between spot and perp, and its **Carry APR**. You can sort by any of them or
+    The asset picker lists every asset with a Hyperliquid perp. Columns show the
+    price, Hyperliquid's funding rate, the spot price on Hyperliquid and on Kimia,
+    the spread between spot and perp, and the **Carry APR**. Sort by any column, or
     search by name.
 
-    Carry APR is the funding rate the best short venue is expected to pay over the
-    next hour, multiplied out to a year. It is gross, before any fees. A higher rate
-    is not automatically better: rates on smaller assets swing harder and reverse
-    more often. Bitcoin and Ethereum pay less and behave more predictably.
+    Carry APR is the funding rate Hyperliquid is expected to pay over the next hour,
+    multiplied out to a year. It is gross, before any fees. A higher rate is not
+    automatically better: rates on smaller assets swing harder and reverse more often.
   </Step>
 
-  <Step title="Pick the venues">
-    **Spot venue** is where the asset is bought: Hyperliquid, Pacifica or Jupiter.
-    **Short venue** is where the perp is sold: Hyperliquid or Pacifica. The venue
-    Kimia recommends is marked with a dot.
+  <Step title="Pick the spot venue">
+    **Spot venue** is where the asset is bought: **Hyperliquid** or **Kimia**. Kimia
+    buys inside your own vault on Solana. See [The Kimia vault](/using-kimia/kimia-vault).
+    The venue Kimia recommends is marked with a dot. A venue that does not list the
+    asset is greyed out.
 
-    Using the same exchange for both sides is simplest. Different venues can pay
-    more, but each side is funded separately.
+    **Short venue** is always Hyperliquid.
   </Step>
 
   <Step title="Enter the amount">
     Type how much USDC to commit in **Total USDC**, or press **Max**. Kimia splits it
     between the two sides for you.
 
-    Each side must be worth at least 10 USD. At 1x that means 20 USD in total, and at
-    2x it means 15 USD.
+    Each side must be worth at least 11 USD. At 1x that means 22 USD in total, and at
+    2x it means 16.50 USD.
   </Step>
 
   <Step title="Choose leverage">
@@ -45,13 +45,9 @@ it as a perp. **Dual perp** is not available yet.
   </Step>
 
   <Step title="Open">
-    The summary under the ticket shows the size of each side, the margin posted, the
-    net exposure and the carry at the current rate. Check it, then press
+    The summary under the ticket shows each side's size, the margin posted, the net
+    exposure and the carry per day at the current rate. Check it, then press
     **Open position**.
-
-    If an exchange is not set up yet, the button reads **Bind Hyperliquid agent** or
-    **Bind Pacifica agent** instead. See
-    [Create your account](/getting-started/create-your-account).
   </Step>
 </Steps>
 
@@ -60,45 +56,53 @@ There is no separate confirmation screen. Pressing **Open position** places the
 orders. The summary is your last look.
 </Note>
 
+## What the button might say instead
+
+| Button | What to do |
+|---|---|
+| **Connect wallet** | Sign in |
+| **Bind Hyperliquid agent** | Approve the agent once. See [Create your account](/getting-started/create-your-account) |
+| **Create Solana wallet** | Kimia spot needs a Solana master. Press it to create one |
+| **Add SOL for fees** | Send at least 0.012 SOL to your Solana master |
+| **Reading vault…**, **Kimia vault unavailable** | Wait, or pick Hyperliquid spot |
+
 ## Signatures
 
-With Hyperliquid or Pacifica on both sides, no signing prompt appears. The agent you
-bound signs the orders.
+With Hyperliquid spot, no prompt appears. The agent you bound signs both orders.
 
-If Jupiter is the spot venue, your Solana master signs the purchase. You will see one
-prompt, showing the swap and its fee.
+With Kimia spot, your Solana master signs the buy: one prompt, or two on the first
+trade of a token. If the signature takes too long, Kimia prepares a fresh one
+automatically.
 
 ## What happens when you press Open
 
-Kimia buys the asset first, then opens the short. The order matters. If the second
-step fails, you are left holding the asset, which is a position you understand and
-can sell.
+Kimia buys the spot first, then opens the short, sized to match the amount of spot
+that actually arrived. If the spot only partly fills, the short is made smaller to
+match.
 
-Doing it the other way round could leave you holding only a short position, which
-loses money if the price rises. Kimia does not do that.
+The order matters. If the short then fails, you hold only spot, which you can sell,
+never a lone short that loses money as the price rises. Kimia tells you plainly:
+"Short failed. Spot is open and unhedged." Sell it from **Spot Holdings**, or try
+again.
 
-Opening also changes two settings on that asset for your exchange account: it sets
-the margin mode to isolated, and sets the leverage you chose. If you also trade that
-account by hand, be aware of this.
+Opening also sets your margin mode to isolated and the leverage you chose for that
+asset on your Hyperliquid account. If you also trade that account by hand, be aware
+of this.
 
-## Reading the result
+## If the order timed out
 
-The position appears as one row in the **Positions** list at the bottom of the page,
-showing both sides together.
-
-The two sides will not be exactly equal. Prices move between the two orders, and each
-exchange rounds sizes differently. A small mismatch is normal.
+If the exchange does not confirm in time, Kimia says the order "may still land".
+Check your positions before doing anything. Retrying from the same ticket replays the
+same order rather than opening a second one.
 
 ## If the ticket will not let you open
 
-The ticket checks a few things before the button works:
-
 | Message | What to do |
 |---|---|
-| Each leg needs at least $10 notional | Increase the amount, or lower the leverage |
+| Each leg needs at least $11 notional | Increase the amount, or lower the leverage |
 | That is more than the $X these venues can fund | Reduce the amount, or deposit more |
-| \{Asset\} allows at most Nx | Lower the leverage |
-| \{Venue\} does not list \{Asset\} spot | Pick one of the spot venues it names |
+| \{Asset\} allows at most Nx on Hyperliquid | Lower the leverage |
+| \{Venue\} has no \{Asset\} spot | Pick the spot venue it suggests |
 
 A warning that spot is some percent above or below the perp does not block you, but
 read it. That gap is a cost on entry.
@@ -106,7 +110,7 @@ read it. That gap is a cost on entry.
 ## If the order is refused
 
 After you press Open, Kimia checks the order again and refuses rather than proceed if
-something is wrong. Common reasons:
+something is wrong:
 
 | Refusal mentions | What to do |
 |---|---|
@@ -117,19 +121,22 @@ something is wrong. Common reasons:
 | Slippage | The price moved too far while placing. Try again |
 | Stale or unavailable market data | Wait a moment and try again |
 | Residue or dust | Pick a different asset. This one cannot be exited cleanly |
-| Reduce only | Opening is paused for your account or that exchange. Closing still works |
-| Builder fee not approved | Approve Kimia's fee on that exchange, then try again |
+| Reduce only | Opening is paused for your account or for Hyperliquid. Closing still works |
+| Builder approved for less than this order charges | Kimia's fee approval is missing. See [What it costs](/using-kimia/what-it-costs) |
+| Under the $10 minimum | Kimia spot only: the short would be too small after the swap. Raise the size |
+| Probably a different token | Kimia spot only: the swap price is more than 5 percent from the perp. Pick Hyperliquid spot |
+| Vault paused, authorization expired | See [Troubleshooting](/safety/troubleshooting#kimia-vault) |
 
 A refusal is the system working. It means the order was understood and judged unsafe,
-not that something broke. See [Troubleshooting](/safety/troubleshooting).
+not that something broke.
 
 ## After it opens
 
-Funding is paid by the exchange every hour, directly into the account holding the
+Funding is paid by Hyperliquid every hour, directly into the account holding the
 short. You do not need to claim it. The positions list shows a countdown to the next
 payment.
 
 There is nothing to do while a position is open. It stays open whether or not you are
-signed in. Kimia does not rebalance it or top up its margin for you.
+signed in.
 
 Next: [Your position](/using-kimia/your-position).

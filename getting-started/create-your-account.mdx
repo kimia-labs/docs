@@ -11,27 +11,27 @@ description: "Your wallets, and the permissions Kimia asks for."
 
   <Step title="Kimia creates your master wallets">
     Behind the scenes, Kimia's sign-in provider, Privy, creates two wallets for you:
-    an **Ethereum master** and a **Solana master**. The two exchanges need different
-    kinds of address, which is why there are two.
+    an **Ethereum master** and a **Solana master**. Hyperliquid needs an Ethereum
+    address and the Kimia vault needs a Solana one, which is why there are two.
 
-    These are the wallets that hold your exchange accounts and your money. They
-    belong to you. Open the account menu, top right, to see both addresses and their
-    balances.
+    These wallets hold your money. They belong to you. Open the account menu, top
+    right, to see both addresses and their balances. If your account has no Solana
+    master yet, the menu and the trade ticket both offer to create one.
   </Step>
 
-  <Step title="Bind an agent on each exchange">
-    You do this from the trade ticket, the first time you trade. When an exchange is
-    not yet set up, the ticket's button reads **Bind Hyperliquid agent** or
-    **Bind Pacifica agent**. Press it and approve the signing prompt.
-
-    A position that uses both exchanges needs both bound, one at a time. Jupiter has
-    no agent of its own. It needs Pacifica bound, because both use your Solana master.
+  <Step title="Back up your keys">
+    Use **Export key** on each master wallet in the account menu and store the keys
+    somewhere safe. They are your way to your money if you ever lose access to Kimia.
+    On a phone, Kimia prompts you to do this.
   </Step>
 
-  <Step title="Approve Kimia's fee on each exchange">
-    Each exchange also asks your master wallet to approve Kimia's fee once. The
-    approval sets a ceiling of 0.1 percent. Kimia currently charges 0.05 percent on
-    the short side only. See [What it costs](/using-kimia/what-it-costs).
+  <Step title="Bind the Hyperliquid agent">
+    You do this from the trade ticket, the first time you trade. When Hyperliquid is
+    not yet set up, the ticket's button reads **Bind Hyperliquid agent**. Press it and
+    approve the signing prompt.
+
+    Kimia spot needs no binding. Your first Kimia trade sets up your vault instead.
+    See [The Kimia vault](/using-kimia/kimia-vault).
   </Step>
 </Steps>
 
@@ -39,26 +39,26 @@ description: "Your wallets, and the permissions Kimia asks for."
 
 | Wallet | Created by | What it does |
 |---|---|---|
-| The wallet you sign in with | You | Proves who you are. Pays for in-app deposits |
-| Ethereum master | Privy, for you | Holds your Hyperliquid account |
-| Solana master | Privy, for you | Holds your Pacifica account and any Jupiter spot holdings |
-| Agent | Kimia | Places and cancels orders on Hyperliquid and Pacifica. Holds no money |
+| The wallet you sign in with | You | Proves who you are. Sends deposits, receives withdrawals |
+| Ethereum master | Privy, for you | Owns your Hyperliquid account |
+| Solana master | Privy, for you | Owns your Kimia vault |
+| Agent | Kimia | Places and cancels orders on Hyperliquid. Holds no money |
 
-Your sign-in wallet is not your exchange account. Money sent to Hyperliquid or
-Pacifica from Phantom or MetaMask directly lands in a different account that Kimia
-cannot see. Always fund the master wallets, or use the in-app deposit.
+Your sign-in wallet is not your exchange account. Money sent to Hyperliquid from
+Phantom or MetaMask directly lands in a different account that Kimia cannot see.
+Always use the Wallet page, or send to the master wallet addresses.
 
 ## What binding the agent allows
 
-The agent is a separate address Kimia creates. Binding tells the exchange that this
-agent may trade on your master wallet's account.
+The agent is a separate address Kimia creates. Binding tells Hyperliquid that this
+agent may trade on your Ethereum master's account.
 
 What the agent can do:
 
 - Open and close positions
 - Cancel orders
 - Change leverage and margin mode on your account
-- On Hyperliquid, move USDC between your own spot and perp balances
+- Move USDC between your own spot and perp balances
 
 What the agent cannot do:
 
@@ -66,24 +66,30 @@ What the agent cannot do:
 - Send money to another address
 - Approve anything else on your behalf
 
-The line between trading and withdrawing is enforced by the exchange. You can revoke
+The line between trading and withdrawing is enforced by Hyperliquid. You can revoke
 the agent at any time. See [Your money](/safety/your-money).
 
-## When you will be asked to sign again
+## Kimia's fee approval
 
-On Hyperliquid and Pacifica, the agent signs every order. After binding and the fee
-approval, opening and closing there happens without a prompt.
+Kimia's fee is collected by Hyperliquid on Kimia's behalf, which needs your Ethereum
+master's one-time approval. This step is not in the app yet. When it is, you will be
+asked once, before your next trade. See [What it costs](/using-kimia/what-it-costs).
 
-Jupiter is different. Solana has no way to delegate trading, so your Solana master
-signs every Jupiter purchase and every Jupiter sale. Expect one prompt per trade when
-Jupiter is one side of your position.
+## When you will be asked to sign
 
-## If Hyperliquid rejects the binding
+On Hyperliquid, the agent signs every order. After binding, opening and closing there
+happens without a prompt.
+
+For Kimia spot, your Solana master signs each buy: once per trade, twice on a token's
+first trade. Closing and selling need no signature.
+
+## If binding fails
 
 Hyperliquid refuses to bind an agent to an empty account. If you have not deposited
-yet, binding fails with a message about the account being unfunded.
+yet, deposit first, then bind.
 
-Deposit first, then bind. Pacifica lets you bind before depositing, but a Pacifica
-order still needs funds on the exchange.
+The error currently reads "Hyperliquid rejected the builder approval" for any binding
+failure, including an unfunded account. If you see it, check your Hyperliquid balance
+first.
 
 Next: [Deposit and bridge](/getting-started/add-funds).

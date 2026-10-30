@@ -34,7 +34,8 @@
               "getting-started/invite-code",
               "getting-started/create-your-account",
               "getting-started/add-funds",
-              "getting-started/first-position"
+              "getting-started/first-position",
+              "getting-started/withdraw"
             ]
           },
           {
@@ -42,9 +43,11 @@
             "pages": [
               "using-kimia/your-position",
               "using-kimia/closing",
+              "using-kimia/kimia-vault",
               "using-kimia/what-it-costs",
               "using-kimia/referrals",
-              "using-kimia/portfolio-and-leaderboard"
+              "using-kimia/portfolio-and-leaderboard",
+              "using-kimia/mobile"
             ]
           },
           {
@@ -77,7 +80,25 @@
     "primary": {
       "type": "button",
       "label": "Launch App",
-      "href": "https://kimia.live"
+      "href": "https://beta.kimia.live"
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/perpetuals/overview",
+      "destination": "/how-it-works"
+    },
+    {
+      "source": "/concepts/delta-neutral-vault",
+      "destination": "/how-it-works"
+    },
+    {
+      "source": "/concepts/yield-amm",
+      "destination": "/"
+    },
+    {
+      "source": "/concepts/pt-yt-tokenization",
+      "destination": "/"
+    }
+  ]
 }

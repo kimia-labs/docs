@@ -9,62 +9,63 @@ Kimia is in private beta. You need an invite code from an existing user to get i
 Codes read `KIM` followed by eight letters or digits. See
 [Invite codes](/getting-started/invite-code).
 
-## A crypto wallet
+## A Solana wallet
 
 Kimia signs you in with a wallet you already have. Phantom, MetaMask and Solflare all
-work.
+work, but to move money in and out you need the **Solana** side of one: Phantom or
+Solflare, or MetaMask with a Solana account. Deposits come from it and withdrawals go
+back to it.
+
+Signing in with only an Ethereum wallet lets you look around, but not deposit or
+withdraw.
 
 This wallet proves who you are. It is not the wallet that trades. When you sign in,
 Kimia creates two new wallets for you, one on Ethereum and one on Solana, and those
-hold the money the exchanges see. [Create your account](/getting-started/create-your-account)
-explains why.
+hold the money. [Create your account](/getting-started/create-your-account) explains
+why.
 
 ## USDC on Solana, and a little SOL
 
-The simplest way in is USDC on Solana, sitting in the wallet you sign in with. The
-in-app deposit takes it from there and splits it between the exchanges for you. See
+The simplest way in is USDC on Solana in the wallet you sign in with. The Wallet
+page's Deposit tab sends it where it needs to go in one transaction. See
 [Deposit and bridge](/getting-started/add-funds).
 
-Keep about 0.01 SOL in the same wallet. The deposit creates a small on-chain account
-that has to be paid for in SOL.
+Keep some SOL too:
 
-You can also send funds straight to each exchange wallet instead:
-
-| Exchange | Runs on | Send |
+| Where | How much | Why |
 |---|---|---|
-| Hyperliquid | Its own chain, HyperCore | USDC on HyperCore to your Ethereum master |
-| Pacifica | Solana | USDC on Solana to your Solana master |
-| Jupiter (spot only) | Solana | Spends from your Solana master directly |
-
-Money on one exchange cannot open a position on another. Once it is there, nothing
-moves it between them automatically.
+| The wallet you sign in with | About 0.007 SOL | Network fees and rent when a deposit bridges to Hyperliquid |
+| Your Solana master | At least 0.012 SOL | Only if you use Kimia as the spot venue. One-time vault setup |
 
 ## A sensible starting amount
 
-Each side of a position must be worth at least 10 USD. At 1x leverage that is 20 USD
-in total, and at 2x it is 15 USD.
+Each side of a position must be worth at least 11 USD. At 1x leverage that is 22 USD
+in total, and at 2x it is 16.50 USD.
 
-That is the technical minimum, not a recommendation. The deposit bridge takes a flat
-fee of around 1.26 USD, and each trade pays exchange fees. At very small sizes those
-costs eat most of what you earn. A few hundred dollars is a more realistic place to
-start seeing the yield clearly.
+That is the technical minimum, not a recommendation. Each trade pays exchange fees,
+and the first deposit to Hyperliquid pays a one-off 1 USD account fee. At very small
+sizes those costs eat most of what you earn. A few hundred dollars is a more realistic
+place to start seeing the yield clearly.
 
-## About twenty minutes
+## About ten minutes
 
-Most of it is waiting for deposits to confirm. The Kimia side takes a couple of
-minutes.
+Deposits usually land in under a minute. The rest is setting up.
 
 <Note>
-Expect a few signing prompts during setup: one to approve trading on each exchange,
-one to approve Kimia's fee on each exchange, and two for the deposit. None of them
-grant a withdrawal permission. See [Your money](/safety/your-money) for exactly what
-each one allows.
+Expect a few signing prompts: one to deposit, one to bind the trading agent on
+Hyperliquid, and one or two for your first Kimia vault trade. None of them let Kimia
+send your money to anyone but you. See [Your money](/safety/your-money).
 </Note>
+
+## On your phone
+
+Kimia works in your phone's browser at [beta.kimia.live](https://beta.kimia.live),
+with a layout built for phones. See [Kimia on your phone](/using-kimia/mobile).
 
 ## What you do not need
 
 You do not need to understand perpetual futures in detail. You do not need to watch
 charts or time an entry. You do not need to keep a browser tab open, since positions
-stay open at the exchange whether or not you are looking at them.
+stay open whether or not you are looking at them.
 
 Next: [Invite codes](/getting-started/invite-code).

@@ -6,9 +6,9 @@ description: "Questions people ask before depositing."
 <AccordionGroup>
 
 <Accordion title="Where does the yield actually come from">
-A fee called the funding rate, paid hourly by leveraged traders on a perpetual futures
-exchange. It is not newly issued tokens, not a share of protocol revenue, and not an
-incentive programme. Somebody is genuinely paying it. See
+A fee called the funding rate, paid hourly by leveraged traders on Hyperliquid's
+perpetual futures. It is not newly issued tokens, not a share of protocol revenue, and
+not an incentive programme. Somebody is genuinely paying it. See
 [How it works](/how-it-works).
 </Accordion>
 
@@ -19,45 +19,59 @@ not the future.
 </Accordion>
 
 <Accordion title="How do I get in">
-Kimia is in private beta. You need an invite code from an existing user, or a place
-from the waitlist. See [Invite codes](/getting-started/invite-code).
+Kimia is in private beta at [beta.kimia.live](https://beta.kimia.live). You need an
+invite code from an existing user, or a place from the waitlist. See
+[Invite codes](/getting-started/invite-code).
 </Accordion>
 
 <Accordion title="Can Kimia take my money">
-No. Your funds sit in your own master wallets and exchange accounts. The agent's
-permission covers trading only, and the exchange enforces that limit. It cannot
-withdraw or transfer. See [Your money](/safety/your-money).
+No. On Hyperliquid, Kimia's agent can trade but not withdraw. In the Kimia vault,
+Kimia can buy within limits you sign, sell, and return funds to you, but the vault
+program refuses to send them anywhere else. The honest caveat: Kimia can sell vault
+tokens without asking, at whatever price the market gives. See
+[Your money](/safety/your-money).
+</Accordion>
+
+<Accordion title="What is the Kimia vault">
+A program on Solana, owned by your Solana wallet, that holds spot bought through
+Kimia. It lets Kimia close your position without asking you to sign. See
+[The Kimia vault](/using-kimia/kimia-vault).
+</Accordion>
+
+<Accordion title="Should I use Hyperliquid or Kimia for spot">
+Kimia marks whichever it recommends for each asset. Hyperliquid spot needs no extra
+setup or signatures. Kimia spot needs a little SOL and one signature per buy, and
+sometimes buys cheaper. Both pair with the same Hyperliquid short.
 </Accordion>
 
 <Accordion title="Why are there wallets I did not create">
-When you sign in, Privy creates an Ethereum master and a Solana master for you. The
-exchanges need those kinds of address, and they hold your money. They are yours, and
-you can export their keys from the account menu at any time.
+When you sign in, Privy creates an Ethereum master and a Solana master for you. They
+hold your money. They are yours, and you can export their keys from the account menu at
+any time.
 </Accordion>
 
 <Accordion title="How often will I be asked to sign">
-Once per exchange to bind the agent, and once per exchange to approve Kimia's fee.
-After that, trades on Hyperliquid and Pacifica need no signature. Trades that use
-Jupiter need one signature each, because Solana has no way to delegate trading.
-Deposits need their own signatures.
+Once to bind the Hyperliquid agent. Once per deposit. Once per Kimia spot buy, twice on
+a token's first. Closing never needs a signature. Kimia's fee approval will be one more,
+once, when it arrives in the app.
 </Accordion>
 
 <Accordion title="Does Kimia charge a fee">
-Yes. 0.05 percent of the short side's size when it opens, and again when it closes.
-Nothing on the spot side. Exchange, bridge and network fees are separate. See
+Yes. 0.05 percent of the short's size when it opens, and again when it closes. Nothing
+on the spot side. Exchange, bridge and network fees are separate. See
 [What it costs](/using-kimia/what-it-costs).
 </Accordion>
 
 <Accordion title="Can I lose money">
-Yes. Funding can turn negative, the leveraged short side can be liquidated, an
-exchange can auto deleverage your position, fees can exceed what you earned, and an
-exchange itself can fail. [Risks](/safety/risks) covers each in detail.
+Yes. Funding can turn negative, the short can be liquidated, Hyperliquid can auto
+deleverage it, fees can exceed what you earned, and the exchange or the vault program
+can fail. [Risks](/safety/risks) covers each in detail.
 </Accordion>
 
 <Accordion title="What is the minimum">
-Each side of a position must be worth at least 10 USD: 20 USD in total at 1x, 15 USD
-at 2x. That is the technical minimum. The bridge fee is flat, so small deposits lose a
-large share to costs. A few hundred dollars is a more realistic start.
+Each side of a position must be worth at least 11 USD: 22 USD in total at 1x, 16.50
+USD at 2x. That is the technical minimum. A few hundred dollars is a more realistic
+start, since fees eat most of the yield on small positions.
 </Accordion>
 
 <Accordion title="How long should I hold">
@@ -66,22 +80,27 @@ Weeks rather than days. Frequent trading is the most common way people lose mone
 this strategy.
 </Accordion>
 
-<Accordion title="Why do I need to fund exchanges separately">
-Hyperliquid runs on its own chain and Pacifica and Jupiter run on Solana. Money on one
-cannot open a position on another. The in-app deposit splits your USDC between
-Solana and Hyperliquid in one go, but after that nothing moves money between them
-automatically. If you use only Hyperliquid, you only fund Hyperliquid.
+<Accordion title="How do I get money in and out">
+The Wallet page. Deposit sends USDC from your Solana wallet to Hyperliquid and your
+Solana master in one transaction, with amounts you choose. Withdraw sends it back to
+the same wallet. See [Deposit and bridge](/getting-started/add-funds) and
+[Withdraw](/getting-started/withdraw).
 </Accordion>
 
 <Accordion title="One side of my position shows a big loss">
-Look at both together. If the long side shows a matching gain, the hedge is doing its
+Look at both together. If the other side shows a matching gain, the hedge is doing its
 job. Neither number means anything on its own.
 </Accordion>
 
+<Accordion title="What happens if my short is liquidated">
+You lose the short's margin. Kimia then sells your spot automatically so you are not
+left unhedged. See [Risks](/safety/risks#liquidation-on-the-short-side).
+</Accordion>
+
 <Accordion title="What happens if Kimia goes offline">
-Your position stays open at the exchange and keeps accruing funding. You can close it
-through the exchange's own website at any time, without Kimia, using your exported
-master wallet key. Export it before you need it.
+Your position stays open and keeps accruing funding. You can close the short at
+Hyperliquid and withdraw from your vault directly, using your exported master wallet
+keys. Export them before you need them.
 </Accordion>
 
 <Accordion title="Why was my order refused">
@@ -90,25 +109,39 @@ something is outside its limits. A refusal is the system working.
 [Troubleshooting](/safety/troubleshooting) lists the common reasons.
 </Accordion>
 
+<Accordion title="Can I use Kimia on my phone">
+Yes, in your phone's browser at [beta.kimia.live](https://beta.kimia.live). See
+[Kimia on your phone](/using-kimia/mobile).
+</Accordion>
+
+<Accordion title="I have a position on Pacifica">
+Kimia no longer opens positions on Pacifica, but existing ones still show in your
+positions list and **Close** still works. You can also manage them at Pacifica with
+your exported Solana master key.
+</Accordion>
+
 <Accordion title="How do referrals work">
 Share your invite link. Once your referrals have traded 5,000 USD and you have traded
 10,000 USD, you earn 5 to 35 percent of the Kimia fees they generate, depending on
 your tier. See [Referrals](/using-kimia/referrals).
 </Accordion>
 
-<Accordion title="Is there a token or an airdrop">
-These docs cover using the product. Nothing here should be read as implying a
-distribution of any kind. Points shown on the leaderboard are not active.
+<Accordion title="Is there a token">
+Yes. $KIMIA is a token on Solana, raised through a futarchy sale on MetaDAO. Using the
+Kimia app does not require holding it, and these docs do not cover it. Nothing here is
+an offer of it or a statement about its value. Leaderboard points are not active.
 </Accordion>
 
 <Accordion title="How do I stop">
-Close your positions, export your master wallet keys, revoke the agent on each
-exchange you bound, and withdraw. None of these steps require Kimia to cooperate.
+Close your positions, withdraw everything, revoke your vault authorizations on the
+Vault tab, and revoke the Hyperliquid agent at Hyperliquid. Export your keys first so
+you keep access throughout.
 </Accordion>
 
 <Accordion title="How do I contact support">
-Email [kimia.support@gmail.com](mailto:kimia.support@gmail.com). Never send a
-private key to anyone, including us.
+Email [kimia.support@gmail.com](mailto:kimia.support@gmail.com). Kimia is also on
+[X](https://x.com/KimiaProtocol) and [Telegram](https://t.me/kimiadotchat). Never send
+a private key to anyone, including us.
 </Accordion>
 
 </AccordionGroup>
