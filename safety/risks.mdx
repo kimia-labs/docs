@@ -34,7 +34,8 @@ This is liquidation. You lose the margin.
 Kimia then sells your spot automatically, usually within a couple of minutes, so you
 are not left holding it unhedged. That sale accepts up to 5 percent slippage, and the
 price may have moved in the meantime. For Kimia spot whose authorization has lapsed,
-Kimia returns the tokens to your Solana master unsold instead.
+or while the vault is paused, Kimia returns the tokens to your Solana master unsold
+instead. Kimia only acts on liquidations it notices within an hour.
 
 Higher leverage makes liquidation happen after a smaller move.
 
@@ -74,12 +75,14 @@ does not have:
 
 - **Smart contract risk.** The program is unaudited. A bug could lose funds
 - **Manager key risk.** Kimia's manager key can sell vault tokens without your
-  signature, and nothing on-chain sets a minimum price. If that key were compromised,
+  signature or authorization, even while the vault is paused, and nothing on-chain
+  sets a minimum price. If that key were compromised,
   tokens could be sold at a bad price. Proceeds could only go back to their owners
 - **Upgrade risk.** Kimia can upgrade the program. Moving that power to a multisig
   with a time delay is planned, not done
-- **Authorization expiry.** Authorizations last 30 days. If yours lapses, Kimia cannot
-  sell your spot to close a pair until you reauthorize
+- **Authorization expiry.** Authorizations last 30 days and are not always renewed by
+  later buys. If yours lapses, Kimia will not close a pair holding that token until you
+  reauthorize, which needs some USDC deposited in the vault
 - **Shared accounts.** Tokens of the same kind sit in one account owned by the program,
   with each owner's share recorded separately. If USDC's issuer froze that account,
   every user's USDC in it would be stuck

@@ -4,8 +4,8 @@ description: "Where Kimia spot lives, what you sign, and what Kimia can do."
 ---
 
 When you pick **Kimia** as the spot venue, the asset is not bought on an exchange. It
-is bought inside the Kimia vault, a program on Solana that your Solana master wallet
-owns. Kimia routes the purchase through Jupiter, a Solana exchange aggregator, and the
+is bought inside the Kimia vault, a program on Solana run by Kimia, where your balance
+is recorded against your Solana master wallet. Kimia routes the purchase through Jupiter, a Solana exchange aggregator, and the
 tokens stay in the vault until the position closes.
 
 ## What the vault holds
@@ -23,9 +23,9 @@ recorded separately. Nobody else's position can spend yours.
 | Moment | Prompts |
 |---|---|
 | A buy on a token you have bought before | One |
-| The first buy of a token | Two: a one-time setup, then the buy |
+| The first buy of a token | One, or two if the one-time setup does not fit in the buy's transaction |
 | Closing a pair, or selling Kimia spot | None |
-| Deposit, withdraw, revoke or authorize on the Vault tab | One each |
+| Deposit, withdraw, revoke, authorize or withdraw a token on the Vault tab | One each |
 
 A buy is a single transaction that, where needed, opens your vault records, moves any
 missing USDC in from your Solana master, renews your authorization and swaps. Kimia
@@ -40,24 +40,30 @@ token inside your vault:
 - **Buying**, up to the USDC you had deposited when you signed
 - **Selling**, without limit, so a position can always be closed
 
-It lasts **30 days**. Each new buy tops it up and extends it.
+It lasts **30 days**. A buy renews it only when what is left does not cover the buy,
+or it is about to expire. So a position held longer than 30 days can lose its
+authorization.
 
-Revoking an authorization stops Kimia trading that token at once. That includes
-closing: a pair whose authorization has expired or been revoked cannot be closed by
-Kimia until you **Reauthorize** it.
+Kimia's servers will not trade a token whose authorization has expired or been
+revoked. That includes closing: Kimia will not close such a pair until you
+**Reauthorize** it. Reauthorizing needs some USDC deposited in the vault. If you have
+none, use **Withdraw as** the token instead.
 
 ## What Kimia can and cannot do in your vault
 
 Kimia acts through a single key it controls, called the manager key.
 
-| Kimia can | Kimia cannot |
+| The program lets Kimia | The program stops Kimia from |
 |---|---|
-| Buy a token, within your authorization and with your signature | Buy without your signature |
-| Sell a token you hold, back to USDC | Send funds to any address except your own Solana wallet |
-| Withdraw your funds to your own Solana wallet | Trade a token whose authorization has expired or been revoked |
-| | Route swaps anywhere except through Jupiter |
+| Buy a token, within your authorization and with your signature | Buying without your signature, or beyond your authorization |
+| Sell a token you hold, back to USDC, at any time | Sending funds to any address except your own Solana wallet |
+| Withdraw your funds to your own Solana wallet | Routing swaps anywhere except through Jupiter |
 
-These limits are enforced by the vault program on-chain, not by Kimia's servers.
+These limits are enforced by the vault program on-chain. On-chain, selling needs no
+authorization at all: the program lets the manager key sell any token back to USDC,
+even while the vault is paused, so that positions can always be unwound. The rule that
+Kimia only sells under a current authorization is Kimia's own policy, applied by its
+servers.
 
 <Warning>
 Nothing on-chain sets a minimum price when Kimia sells. If Kimia's manager key were
@@ -69,8 +75,8 @@ the proceeds anywhere except back to their owners. See [Risks](/safety/risks#kim
 
 Your Solana master needs:
 
-- **At least 0.012 SOL.** It pays the one-time rent for your vault records. If you are
-  short, the trade ticket's button reads **Add SOL for fees**. Send SOL to the Solana
+- **At least 0.012 SOL.** Checked before every Kimia trade. The first trade of a token
+  also pays one-time rent for its vault records. If you are short, the trade ticket's button reads **Add SOL for fees**. Send SOL to the Solana
   master's address, shown in the account menu
 - **USDC**, either in the Solana master or already deposited in the vault. The
   Deposit tab sends it there. See [Deposit and bridge](/getting-started/add-funds)
@@ -88,16 +94,22 @@ each token.
 | Deposited USDC | USDC in the vault, ready for buys |
 | Wallet USDC, Wallet SOL | What your Solana master holds outside the vault |
 | **Deposit**, **Withdraw** | Move USDC between your Solana master and the vault |
-| **Withdraw as USDC** | Sell a token, then return the USDC to you |
+| **Withdraw as USDC** | Sell a token and send the USDC to your Solana master |
 | **Withdraw as** a token | Take the token itself out of the vault, unsold |
 | **Revoke** | Cancel that token's authorization |
 | **Authorize**, **Reauthorize** | Grant or renew it |
 
-Each token shows its authorization status, for example "$40 left to buy · until Nov 27",
-"Unlimited", "Authorization expired" or "Not authorized".
+Each token shows its authorization status, for example "$40.00 left to buy · until
+Nov 27", "Authorization expired Nov 27" or "Not authorized".
 
 Each of these steps is a transaction your Solana master signs and pays a small SOL fee
 for.
+
+## When the vault is paused
+
+Kimia can pause the vault. While paused, buys and Vault tab deposits are refused, and
+Kimia's servers will not close a pair holding Kimia spot. Your own withdrawals still
+work: **Withdraw** and **Withdraw as** a token are never blocked by a pause.
 
 ## Closing
 

@@ -38,7 +38,7 @@ provider, not by your name.
 |---|---|
 | Your X account identifier, handle, display name, profile picture, and verified status | To sign you in with X and identify your place on the waitlist |
 | A nickname, if you choose one | To show on your waitlist entry |
-| Your email address, if you provide it | To contact you about access |
+| Your email address, required to join | To contact you about access |
 | A Solana wallet address | To tie your invite to one wallet |
 | Your marketing preference and acknowledgements | To respect your choices |
 | Your chosen pack, queue position, and timestamps | To run the waitlist |
@@ -73,11 +73,12 @@ identity can see its history. Consider this before funding an address you have u
 elsewhere.
 
 **Share cards you create are public.** Anyone with the link can see the pair, its
-route, prices, returns and, unless you hide amounts, dollar figures, along with your
+route, prices, returns and dollar figures, unless you hide them on a phone, along with your
 referral code.
 
 **The leaderboard is public.** It shows a shortened form of your wallet address with
-your profit and loss, return, volume, and account value for each period.
+your profit and loss, return and volume for each period. The referral leaderboard is
+also public: a shortened address with your total and active referral counts.
 
 ## 6. Third parties
 
@@ -109,7 +110,8 @@ opened, a record that you accepted the risk notice, and whether you chose to hid
 On phones, the app also remembers for the current session that it has shown the key
 backup prompt. They exist so you are not asked again on every visit.
 
-The waitlist sets its own signed session cookie while you are signed in with X.
+The waitlist sets its own signed session cookie while you are signed in with X, and a
+short-lived cookie during the X sign-in itself.
 
 Clearing your browser storage signs you out and may ask you to re-enter your invite
 code and accept the risk notice again. It does not affect your funds or your

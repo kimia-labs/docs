@@ -44,9 +44,10 @@ in the exchange accounts those wallets hold. You can export the keys to those wa
 at any time, and withdraw directly from the exchange or on-chain without our
 involvement or permission.
 
-Spot bought through Kimia is held in the Kimia vault, a program on Solana owned by your
-Solana wallet. Within that program, a key we control can buy tokens within limits you
-sign, sell tokens you hold, and return your funds to your own Solana wallet. The program
+Spot bought through Kimia is held in the Kimia vault, a program on Solana operated by us, in
+which your balance is recorded against your Solana wallet. Within that program, a key we control can buy tokens within limits you
+sign, sell tokens you hold at any time, and return your funds to your own Solana
+wallet. The program
 does not allow it to send your funds to any other address. We may upgrade the program.
 
 You are solely responsible for your wallets, your private keys, and your seed phrase,

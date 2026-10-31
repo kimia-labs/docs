@@ -25,13 +25,15 @@ Fund both places in one transaction, from the Solana wallet you signed in with.
     **To HyperCore** is bridged to your Hyperliquid account. Either can be zero. Each
     has a **Max** that fills whatever the other leaves.
   </Step>
-  <Step title="Check what arrives">
-    The HyperCore figure is what the bridge quote says will actually land, after its
-    fee.
-  </Step>
   <Step title="Press Deposit and approve once">
-    One wallet prompt covers both. Both land, or neither does. The app shows each leg
-    as it progresses, with a link to the transaction.
+    One wallet prompt covers both. The HyperCore figure then changes from what you
+    typed to what the bridge quote says will land, after its fee. To see that quote
+    before committing, use the Bridge tab.
+  </Step>
+  <Step title="Watch it arrive">
+    Both legs go in one Solana transaction, so if it fails, neither moves. The
+    HyperCore share then waits for Circle to forward it, which can occasionally fail.
+    The app shows each leg as it progresses, with a link to the transaction.
   </Step>
 </Steps>
 
@@ -43,11 +45,11 @@ in under a minute.
 | | |
 |---|---|
 | Bridge fee | About 0.25 USD, near-flat whatever the size. The quote is authoritative |
-| First deposit to HyperCore | 1 USD extra, a one-off account fee charged by Hyperliquid |
+| First deposit to HyperCore | 1 USD extra, a one-off fee to open your HyperCore account |
 | Minimum to HyperCore | More than the fee, plus the 1 USD on a first deposit |
 | Suggested minimum | 20 USD. Below that the app warns you |
-| SOL needed | About 0.007 SOL in your sign-in wallet when bridging |
-| Maximum | 1,000,000 USD per deposit |
+| SOL needed | About 0.007 SOL in your sign-in wallet when bridging. About 0.004 SOL of it is rent for the bridge message, not returned |
+| Maximum | 1,000,000 USD per leg |
 
 ## The Bridge tab
 
@@ -76,8 +78,7 @@ Sending any other token or network risks losing it.
 **Hyperliquid.** Bridged USDC arrives in your HyperCore spot balance. When you open a
 position, Kimia moves whatever the short needs from spot to perp for you.
 
-**Solana master.** USDC waits there. Your first Kimia buy pulls what it needs into
-your vault. You can also move it in yourself from the Vault tab.
+**Solana master.** USDC waits there. Each Kimia buy pulls in whatever it needs. You can also move it in yourself from the Vault tab.
 
 Use **Refresh balances** in the account menu if a balance looks out of date.
 
@@ -88,7 +89,8 @@ Do not put every last dollar into a position.
 The short is backed by margin held against that position alone, called isolated
 margin. If the price rises sharply, that margin absorbs the move. If it runs out, the
 exchange closes the short, which is called liquidation. Kimia then sells your spot
-automatically, so you are not left holding it unhedged, but you lose the margin. See
+automatically, or for Kimia spot it cannot sell returns the tokens to
+your Solana master, so you are not left holding it unhedged. You lose the margin. See
 [Risks](/safety/risks).
 
 Spare balance on Hyperliquid does not protect the short by itself. It gives you funds

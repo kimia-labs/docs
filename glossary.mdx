@@ -13,7 +13,8 @@ Carry APR is the next hour's expected funding rate times 8,760.
 
 **Authorization**
 What you sign to let Kimia trade a token inside your vault: buy up to the USDC you
-authorized, sell without limit, for 30 days. Revocable at any time. See
+authorized, and sell, for 30 days. Kimia's servers only trade under a current
+authorization. Revocable at any time. See
 [The Kimia vault](/using-kimia/kimia-vault#the-authorization).
 
 **Auto deleveraging**
@@ -78,8 +79,8 @@ A Solana exchange aggregator. The Kimia vault routes its swaps through it.
 Buying spot inside your own Kimia vault on Solana, rather than on Hyperliquid.
 
 **Kimia vault**
-A program on Solana, owned by your Solana master, that holds Kimia spot and the USDC
-for it. Kimia can trade inside it and return funds to you, nothing else. See
+A program on Solana, run by Kimia, that holds Kimia spot and the USDC for it, with
+each user's balance recorded against their Solana master. Kimia can trade inside it and return funds to you, nothing else. See
 [The Kimia vault](/using-kimia/kimia-vault).
 
 **Leverage**
@@ -103,8 +104,8 @@ moves.
 
 **Master wallet**
 One of two wallets, Ethereum and Solana, created for you by Privy when you sign in.
-The Ethereum master owns your Hyperliquid account; the Solana master owns your Kimia
-vault. Exportable at any time.
+The Ethereum master owns your Hyperliquid account; your Kimia vault balance is
+recorded against the Solana master. Exportable at any time.
 
 **Notional**
 The full value of a position, as opposed to the money you posted to open it. A 500

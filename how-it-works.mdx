@@ -73,11 +73,11 @@ hedge at the worst possible moment. See [Risks](/safety/risks).
 
 | Side | Where | How |
 |---|---|---|
-| Spot, buying the asset | Hyperliquid, or Kimia | Kimia buys inside your own vault on Solana, routed through Jupiter |
+| Spot, buying the asset | Hyperliquid, or Kimia | Kimia buys inside the Kimia vault on Solana, routed through Jupiter |
 | Short, selling the perp | Hyperliquid | Always Hyperliquid |
 
-For each asset, Kimia marks the spot venue it recommends, usually whichever is
-cheaper to buy on right now.
+For each asset, Kimia marks a recommended spot venue: the one whose price tracks the
+perp most closely right now. It is a suggestion, not a requirement.
 
 The two places live on different blockchains. Your Hyperliquid account holds the
 short and any Hyperliquid spot. Your Solana wallet funds the Kimia vault. Nothing

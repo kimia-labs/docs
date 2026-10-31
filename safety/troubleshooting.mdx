@@ -25,8 +25,9 @@ different Kimia account. Sign in with the wallet you used originally.
 Solana side of your sign-in wallet. If you signed in with an Ethereum-only wallet, sign
 in again with Phantom, Solflare, or MetaMask with a Solana account.
 
-**Refused before signing.** The amount going to HyperCore is too small to cover the
-bridge fee, plus 1 USD on your first HyperCore deposit.
+**Refused before signing.** The amount going to HyperCore is no more than the bridge
+fee, about 0.25 USD. Your first HyperCore deposit also loses 1 USD to opening the
+account.
 
 **Failed while signing.** Check your sign-in wallet holds about 0.007 SOL as well as
 the USDC.
@@ -59,8 +60,9 @@ Hyperliquid spot.
 
 **"Kimia's trading key changed".** Authorize the token again on the **Vault** tab.
 
-**"The Kimia vault is paused".** Kimia has paused buys. Nothing was traded. Withdrawals
-still work.
+**"The Kimia vault is paused".** Nothing was traded. Kimia cannot buy or sell vault
+tokens until it resumes, so pairs holding Kimia spot cannot be closed by Kimia either.
+**Withdraw** and **Withdraw as** a token on the Vault tab still work.
 
 **"The buy expired before it landed".** You took a little long to sign. Kimia prepares
 a fresh one automatically; approve it.
@@ -124,8 +126,9 @@ Expected. See [Closing a position](/using-kimia/closing#the-dust-that-gets-left-
 
 ## A closed pair is missing from Portfolio
 
-Closed pairs appear after their fills are confirmed, which can take a few minutes.
-Pairs closed before 28 October 2026 are not recorded.
+A closed pair shows straight away, though its prices and funding can take a few
+minutes to fill in. Before 28 October 2026, only the most recent closed pair per asset
+was kept.
 
 ## The app is down
 

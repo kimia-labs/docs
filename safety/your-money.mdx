@@ -8,12 +8,12 @@ plainly.
 
 ## At a glance
 
-| Where | Owned by | Kimia can | Kimia cannot |
+| Where | Belongs to | Kimia can | Kimia cannot |
 |---|---|---|---|
 | Your sign-in wallet | You | Nothing | Anything |
 | Your Hyperliquid account | Your Ethereum master | Trade through the agent | Withdraw or transfer |
 | Your Solana master | You | Withdraw to your sign-in wallet, when you ask in the app | Send anywhere else |
-| Your Kimia vault | Your Solana master, through the vault program | Buy within your authorization, sell, return funds to your Solana master | Send funds anywhere else |
+| Your Kimia vault balance | You, recorded against your Solana master in Kimia's vault program | Buy within your authorization, sell, return funds to your Solana master | Send funds anywhere else |
 
 ## The wallets
 
@@ -48,11 +48,11 @@ It cannot take your funds. Hyperliquid enforces the line, not Kimia.
 
 ## The Kimia vault: trading, and returning to you
 
-Kimia spot sits in a program on Solana that your Solana master owns. Through its
+Kimia spot sits in a program on Solana, recorded against your Solana master. Through its
 manager key, Kimia can:
 
 - **Buy** a token, only with your signature, within the USDC you authorized, for 30 days
-- **Sell** any token you hold, without your signature, so positions can always close
+- **Sell** any token you hold, back to USDC, without your signature. Kimia's servers only do this while your authorization is live and the vault is not paused, but the program itself allows it with no authorization
 - **Withdraw** your USDC or tokens, but only to your own Solana master
 
 The program refuses to send vault funds anywhere except their owner. It does not set a
@@ -69,10 +69,10 @@ rules. Handing that power to a multisig with a time delay is planned, not done.
 |---|---|---|
 | Bind the Hyperliquid agent | Ethereum master | Once |
 | Approve Kimia's fee | Ethereum master | Once, when the step arrives in the app |
-| Kimia vault buy and authorization | Solana master | Each buy. Two on a token's first |
+| Kimia vault buy and authorization | Solana master | Each buy. Sometimes two on a token's first |
 | Vault tab steps | Solana master | Each |
 | Deposit, bridge to HyperCore | Your sign-in wallet | Each |
-| Withdraw from Solana master | Your sign-in wallet | Each |
+| Withdraw from Solana master | Your sign-in wallet, plus the Solana master without a prompt | Each |
 | Withdraw or bridge from HyperCore | Ethereum master, without a prompt | Each, when you press Withdraw |
 
 ## Getting your keys
@@ -82,9 +82,12 @@ outside Kimia:
 
 <Steps>
   <Step title="Open the account menu">
-    Top right. On a phone, Settings, then My Profile.
+    Top right. On a phone: Settings, then My Profile, then the **⋯** button.
   </Step>
-  <Step title="Press Export key on the wallet you need">
+  <Step title="Export the wallet you need">
+    On a computer, press **Export key**. On a phone, **Export Ethereum key** or
+    **Export Solana key**, where the wallets are called Ethereum wallet and Solana
+    wallet.
     **Ethereum master** for Hyperliquid, **Solana master** for your vault. Privy shows
     the key in its own secure window.
   </Step>
@@ -103,9 +106,11 @@ unavailable.
 connected with your exported Ethereum master. Takes effect immediately. Open
 positions stay open, and you manage them at Hyperliquid.
 
-**Vault authorizations.** On the **Vault** tab, press **Revoke** on a token. Kimia
-stops trading it at once, including selling it, so a pair holding that token can no
-longer be closed by Kimia until you reauthorize or withdraw the token yourself.
+**Vault authorizations.** On the **Vault** tab, press **Revoke** on a token. On-chain,
+this stops Kimia buying that token. Kimia's servers also stop selling it, by policy,
+so a pair holding that token will not be closed by Kimia until you reauthorize or
+withdraw the token yourself. The program itself still lets the manager key sell it
+back to USDC.
 
 **Vault funds.** **Withdraw** and **Withdraw as** a token on the Vault tab return
 funds to your Solana master. The vault program lets you do this even if Kimia pauses
@@ -121,10 +126,11 @@ and asking afterwards.
     See above.
   </Step>
   <Step title="Revoke the Hyperliquid agent and your vault authorizations">
-    This stops further trading immediately.
+    This stops further Hyperliquid trading and vault buys immediately.
   </Step>
   <Step title="Close positions at Hyperliquid and withdraw vault tokens">
-    You do not need Kimia for either.
+    You do not need Kimia for either. Withdrawing tokens out of the vault is the only
+    way to put them fully beyond the manager key.
   </Step>
   <Step title="Withdraw">
     Your master wallets keep full control throughout.
