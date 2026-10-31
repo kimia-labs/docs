@@ -9,6 +9,11 @@
     "dark": "#7790ed"
   },
   "favicon": "/favicon.png",
+  "seo": {
+    "metatags": {
+      "canonical": "https://docs.kimia.live"
+    }
+  },
   "logo": {
     "light": "/logo/light.png",
     "dark": "/logo/dark.png",
